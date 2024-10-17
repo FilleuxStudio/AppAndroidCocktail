@@ -18,7 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.filleuxstudio.appandroidcocktail.viewmodel.AuthViewModel
 import com.filleuxstudio.appandroidcocktail.architecture.AuthViewModelFactory
-import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
+import com.filleuxstudio.appandroidcocktail.repository.FirebaseAuthRepository
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable

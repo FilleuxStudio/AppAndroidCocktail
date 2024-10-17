@@ -2,11 +2,15 @@ package com.filleuxstudio.appandroidcocktail.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
+import com.filleuxstudio.appandroidcocktail.repository.FirebaseAuthRepository
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class AuthViewModel(private val repository: FirebaseAuthRepository) : ViewModel() {
     private val _user = MutableStateFlow<FirebaseUser?>(repository.getCurrentUser())
@@ -59,6 +63,22 @@ class AuthViewModel(private val repository: FirebaseAuthRepository) : ViewModel(
             )
         }
     }
+
+    fun signInWithGoogle(account: GoogleSignInAccount) {
+        viewModelScope.launch {
+            val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+            try {
+                val authResult = FirebaseAuth.getInstance().signInWithCredential(credential).await()
+                _user.value = authResult.user
+                _errorMessage.value = null
+                println("Utilisateur connecté : ${authResult.user?.uid}")
+            } catch (e: Exception) {
+                _errorMessage.value = "Erreur lors de la connexion avec Google : ${e.localizedMessage}"
+                println("Erreur lors de la connexion avec Google : ${e.localizedMessage}")
+            }
+        }
+    }
+
 
     fun signOut() {
         repository.signOut()
