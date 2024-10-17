@@ -4,7 +4,7 @@ import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 
 @Entity(tableName = "Ingredient")
-data class IngradientEntity(
+data class IngredientEntity(
 
     @ColumnInfo(name = "name")
     val name: String,

@@ -1,18 +1,19 @@
 package com.filleuxstudio.appandroidcocktail.data.dao
 
-import CocktailEntity
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.filleuxstudio.appandroidcocktail.data.model.CocktailEntity
 import kotlinx.coroutines.flow.Flow
+
 
 @Dao
 interface CocktailDAO {
 
-   /* @Query("SELECT * FROM Cocktail ORDER BY name ASC")
+    @Query("SELECT * FROM cocktail ORDER BY name ASC")
     fun getAllCocktails(): Flow<List<CocktailEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -40,5 +41,5 @@ interface CocktailDAO {
     fun deleteCocktail(cocktailEntity: CocktailEntity)
 
     @Query("SELECT * FROM Cocktail WHERE name LIKE '%' || :searchQuery || '%'")
-    fun searchCocktails(searchQuery: String): Flow<List<CocktailEntity>> */
+    fun searchCocktails(searchQuery: String): Flow<List<CocktailEntity>>
 }

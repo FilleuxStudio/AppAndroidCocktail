@@ -8,5 +8,17 @@ data class DrinkTypeDTO(
 data class DrinkSummary(
     @SerializedName("strDrink") val name: String,
     @SerializedName("strDrinkThumb") val thumbnailUrl: String,
-    @SerializedName("idDrink") val id: String
+    @SerializedName("idDrink") val idDrink: String
 )
+
+fun DrinkSummary.toRoom(): DrinkTypeEntity {
+    return DrinkTypeEntity(
+        name = name ?: "",
+        thumbnailUrl = thumbnailUrl ?: "",
+        idDrink = idDrink ?: "",
+    )
+}
+
+fun List<DrinkTypeDTO>.toRoomEntities(): List<DrinkTypeEntity> {
+    return this.flatMap { it.drinks }.map { it.toRoom() }
+}

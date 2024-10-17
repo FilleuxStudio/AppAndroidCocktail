@@ -11,9 +11,11 @@ data class DrinkTypeEntity
     val name: String,
 
     @ColumnInfo(name = "thumbnail_url")
-    val thumbnailUrl: String
+    val thumbnailUrl: String,
+
+    @ColumnInfo(name = "idDrink")
+    val idDrink: String
     ) {
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 }

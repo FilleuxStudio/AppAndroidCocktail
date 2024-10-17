@@ -1,6 +1,5 @@
 package com.filleuxstudio.appandroidcocktail.data.model
 
-import CocktailEntity
 import com.google.gson.annotations.SerializedName
 
 data class CocktailDTO(
@@ -116,6 +115,6 @@ fun Drink.toRoom(): CocktailEntity {
     )
 }
 
-fun List<CocktailDTO>.toRoomEntities(): List<CocktailEntity> {
+fun List<CocktailDTO>.toRoomEntitiesCocktail(): List<CocktailEntity> {
     return this.flatMap { it.drinks }.map { it.toRoom() }
 }
