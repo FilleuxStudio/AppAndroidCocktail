@@ -23,8 +23,9 @@ import com.filleuxstudio.appandroidcocktail.R
 @Composable
 fun HomepageScreen(
     onNavigateToList: () -> Unit,
-    onNavigateToFirebase: () -> Unit
-) {
+    onNavigateToFirebase: () -> Unit,
+
+    ) {
     // Colors from the cocktail image
     val redColor = Color(0xFFFF4C4C) // Red from the cocktail
     val yellowColor = Color(0xFFFFFF00) // Yellow
