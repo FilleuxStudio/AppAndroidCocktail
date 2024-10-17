@@ -106,7 +106,6 @@ fun RegisterScreenContent(viewModel: AuthViewModel, navController: NavController
                 Button(
                     onClick = { viewModel.signUp(email, password) },
                     modifier = Modifier
-                        .fillMaxWidth()
                         .padding(vertical = 8.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C)),
                     shape = RoundedCornerShape(8.dp)

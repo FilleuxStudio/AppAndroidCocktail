@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.filleuxstudio.appandroidcocktail.R
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun HomepageScreen(
@@ -28,9 +29,15 @@ fun HomepageScreen(
     ) {
     // Colors from the cocktail image
     val redColor = Color(0xFFFF4C4C) // Red from the cocktail
-    val yellowColor = Color(0xFFFFFF00) // Yellow
-    val greenColor = Color(0xFFB0FF00) // Green
+    val yellowColor = Color(0xFFFFE773) // Yellow
+    val greenColor = Color(0xFFBEFA91) // Green
     val blackOutline = Color.Black
+
+    // Récupérer l'utilisateur connecté
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val userId = currentUser?.uid
+
+
 
     // Background with circles in red, yellow, and green
     Box(
@@ -104,6 +111,18 @@ fun HomepageScreen(
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 32.dp)
             )
+
+            if (userId != null) {
+                // Affichage de l'ID utilisateur si l'utilisateur est connecté
+                Text(
+                    text="Your ID : $userId",
+                    fontWeight = FontWeight.Bold
+
+                )
+
+            } else {
+                    Text("Connect to retrieve your account ID")
+            }
 
             // Button to navigate to API List
             Button(

@@ -112,7 +112,11 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                             val userId = viewModel.user.value?.uid ?: ""
                             navController.navigate("homepage/$userId")
                         }
-                    })
+                    },modifier = Modifier
+                        .padding(vertical = 8.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C)),
+                        shape = RoundedCornerShape(8.dp)
+                    )
                     {
                         Text(text = "Login", color = Color.White)
                     }
