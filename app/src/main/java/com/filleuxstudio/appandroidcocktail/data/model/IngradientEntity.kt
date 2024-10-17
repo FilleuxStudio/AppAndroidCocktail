@@ -5,9 +5,6 @@ import androidx.room.ColumnInfo
 
 @Entity(tableName = "Ingredient")
 data class IngradientEntity(
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: String,
 
     @ColumnInfo(name = "name")
     val name: String,
@@ -23,4 +20,8 @@ data class IngradientEntity(
 
     @ColumnInfo(name = "abv")
     val abv: String?
-)
+) {
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Long = 0
+}

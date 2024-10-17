@@ -1,5 +1,6 @@
 package com.filleuxstudio.appandroidcocktail.data.dao
 
+import CocktailEntity
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -11,27 +12,33 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CocktailDAO {
 
-    @Query("SELECT * FROM driver_table ORDER BY full_name ASC")
-    fun getAllDrivers(): Flow<List<OpenF1DriverEntity>>
+   /* @Query("SELECT * FROM Cocktail ORDER BY name ASC")
+    fun getAllCocktails(): Flow<List<CocktailEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDriver(driverEntity: OpenF1DriverEntity)
+    fun insertCocktail(cocktailEntity: CocktailEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAllDrivers(drivers: List<OpenF1DriverEntity>)
+    fun insertAllCocktails(cocktails: List<CocktailEntity>)
 
-    @Query("DELETE FROM driver_table")
-    fun deleteAllDrivers()
+    @Query("DELETE FROM Cocktail")
+    fun deleteAllCocktails()
 
-    @Query("SELECT * FROM driver_table WHERE driver_number = :driverNumber LIMIT 1")
-    fun getDriverByNumber(driverNumber: Int): OpenF1DriverEntity?
+    @Query("SELECT * FROM Cocktail WHERE id = :cocktailId LIMIT 1")
+    fun getCocktailById(cocktailId: String): CocktailEntity?
 
-    @Query("SELECT * FROM driver_table WHERE team_name = :teamName")
-    fun getDriversByTeam(teamName: String): Flow<List<OpenF1DriverEntity>>
+    @Query("SELECT * FROM Cocktail WHERE category = :category")
+    fun getCocktailsByCategory(category: String): Flow<List<CocktailEntity>>
+
+    @Query("SELECT * FROM Cocktail WHERE alcoholic = :alcoholic")
+    fun getCocktailsByAlcoholic(alcoholic: String): Flow<List<CocktailEntity>>
 
     @Update
-    fun updateDriver(driverEntity: OpenF1DriverEntity)
+    fun updateCocktail(cocktailEntity: CocktailEntity)
 
     @Delete
-    fun deleteDriver(driverEntity: OpenF1DriverEntity)
+    fun deleteCocktail(cocktailEntity: CocktailEntity)
+
+    @Query("SELECT * FROM Cocktail WHERE name LIKE '%' || :searchQuery || '%'")
+    fun searchCocktails(searchQuery: String): Flow<List<CocktailEntity>> */
 }

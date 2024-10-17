@@ -7,13 +7,13 @@ import androidx.room.ColumnInfo
 @Entity(tableName = "DrinkType")
 data class DrinkTypeEntity
     (
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: String,
-
     @ColumnInfo(name = "name")
     val name: String,
 
     @ColumnInfo(name = "thumbnail_url")
     val thumbnailUrl: String
-    )
+    ) {
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Long = 0
+}

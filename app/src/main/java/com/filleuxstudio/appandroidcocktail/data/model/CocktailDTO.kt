@@ -63,7 +63,6 @@ data class Drink(
 
 fun Drink.toRoom(): CocktailEntity {
     return CocktailEntity(
-        id = id ?: "",
         name = name ?: "",
         alternativeName = alternativeName ?: "",
         tags = tags ?: "",

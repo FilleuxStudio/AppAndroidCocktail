@@ -4,10 +4,6 @@ import androidx.room.ColumnInfo
 
 @Entity(tableName = "Cocktail")
 data class CocktailEntity(
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    val id: String,
-
     @ColumnInfo(name = "name")
     val name: String,
 
@@ -157,4 +153,8 @@ data class CocktailEntity(
 
     @ColumnInfo(name = "date_modified")
     val dateModified: String
-)
+) {
+    @PrimaryKey
+    @ColumnInfo(name = "id")
+    var id: Long = 0
+}
