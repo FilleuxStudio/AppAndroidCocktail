@@ -4,6 +4,7 @@ import com.filleuxstudio.appandroidcocktail.data.model.CocktailDTO
 import com.filleuxstudio.appandroidcocktail.data.model.DrinkTypeDTO
 import com.filleuxstudio.appandroidcocktail.data.model.IngredientDTO
 import com.google.gson.GsonBuilder
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -37,7 +38,7 @@ interface CocktailServiceByFirstLetter {
 
 interface CocktailServiceByIngredientName  {
     @GET("search.php")
-    suspend fun GetCocktailIngredientName(@Query("i") IngredientName: String): List<IngredientDTO>
+    suspend fun GetCocktailIngredientName(@Query("i") IngredientName: String): Response<IngredientDTO>
 }
 
 interface CocktailServiceByRandom {

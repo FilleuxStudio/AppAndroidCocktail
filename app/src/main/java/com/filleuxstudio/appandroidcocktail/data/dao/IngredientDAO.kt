@@ -21,7 +21,7 @@ interface IngredientDAO {
     fun searchIngredients(searchQuery: String): Flow<List<IngredientEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertIngredient(ingredient: IngredientEntity): Long
+    fun insertIngredient(ingredient: IngredientEntity): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllIngredients(ingredients: List<IngredientEntity>)

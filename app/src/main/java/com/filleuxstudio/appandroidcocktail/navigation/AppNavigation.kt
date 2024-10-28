@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.filleuxstudio.appandroidcocktail.screen.APIListViewScreen
 import com.filleuxstudio.appandroidcocktail.screen.HomepageScreen
 
 @Composable
@@ -16,7 +17,7 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
         composable("listFeature") {
-            // Placeholder for API List (Feature 2)
+            APIListViewScreen(navController)
         }
         composable("firebaseFeature") {
             // Placeholder for Firebase Authentication (Feature 3)

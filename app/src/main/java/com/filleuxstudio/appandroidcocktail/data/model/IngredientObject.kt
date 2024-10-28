@@ -12,10 +12,10 @@ fun List<IngredientEntity>.toUi(): List<IngredientObject> {
     return map { entity ->
         IngredientObject(
             nameIngredient = entity.name,
-            description =  entity.description ?: "",
-            type = entity.type ?: "",
-            isAlcohol = entity.isAlcoholic ?: "",
-            abv = entity.abv ?: "",
+            description = entity.description ?: "", // Valeur par défaut si null
+            type = entity.type ?: "",               // Valeur par défaut si null
+            isAlcohol = entity.isAlcoholic ?: "",   // Valeur par défaut si null
+            abv = entity.abv ?: ""                   // Valeur par défaut si null
         )
     }
 }
