@@ -62,7 +62,8 @@ import androidx.compose.material3.Text
 @Composable
 fun APIListViewScreen(navController: NavController) {
     val viewModel: IngredientViewModel = viewModel()
-    val list = viewModel.ingredient.collectAsState(emptyList()).value
+    //val list = viewModel.ingredient.collectAsState(emptyList()).value
+    val list = viewModel.ingredient.collectAsState().value
 
     Scaffold(
         bottomBar = {
@@ -73,7 +74,7 @@ fun APIListViewScreen(navController: NavController) {
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .background(Color(0xFFF))
+                .background(Color(0xf2f2f2ff))
                 .padding(16.dp)
         ) {
             SearchBar(viewModel)
@@ -89,8 +90,8 @@ fun SearchBar(viewModel: IngredientViewModel) {
 
     Box(
         modifier = Modifier
+            .background(Color(0xffffffff), shape = MaterialTheme.shapes.medium) // Couleur de fond appliquée d'abord
             .fillMaxWidth()
-            .background(Color(0xFF2A2A2A), shape = MaterialTheme.shapes.medium)
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
         BasicTextField(
@@ -98,7 +99,7 @@ fun SearchBar(viewModel: IngredientViewModel) {
             onValueChange = { newValue ->
                 searchQuery = newValue
             },
-            textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+            textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
             decorationBox = { innerTextField ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -106,11 +107,11 @@ fun SearchBar(viewModel: IngredientViewModel) {
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
                         contentDescription = "Search Icon",
-                        tint = Color.Gray
+                        tint = Color.Black
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     if (searchQuery.text.isEmpty()) {
-                        Text("Search ingredients...", color = Color.Gray, fontSize = 18.sp)
+                        Text("Search ingredients...", color = Color.Black, fontSize = 18.sp)
                     }
                     innerTextField()
                 }
@@ -161,7 +162,7 @@ fun IngredientItem(name: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .background(Color(0xFF1E1E1E), shape = MaterialTheme.shapes.medium)
+            .background(Color(0xffffffff), shape = MaterialTheme.shapes.medium)
             .padding(16.dp)
             .clickable(onClick = onClick),
         verticalAlignment = Alignment.CenterVertically
@@ -174,7 +175,7 @@ fun IngredientItem(name: String, onClick: () -> Unit) {
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = name,
-            color = Color.White,
+            color = Color.Black,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
@@ -210,7 +211,7 @@ fun BottomNavigationBar(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFF1E1E1E))
+            .background(Color(0xffffffff))
             .padding(10.dp),  // Ajoutez un peu de remplissage pour le style
         horizontalArrangement = Arrangement.SpaceAround,  // Espacement entre les boutons
         verticalAlignment = Alignment.CenterVertically
