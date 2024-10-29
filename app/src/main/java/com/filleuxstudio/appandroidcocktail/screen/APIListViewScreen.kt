@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -52,6 +54,10 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.filleuxstudio.appandroidcocktail.R
 import com.filleuxstudio.appandroidcocktail.data.model.IngredientObject
 import com.filleuxstudio.appandroidcocktail.viewmodel.IngredientViewModel
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
+
 
 @Composable
 fun APIListViewScreen(navController: NavController) {
@@ -114,8 +120,8 @@ fun SearchBar(viewModel: IngredientViewModel) {
                 .onKeyEvent { keyEvent ->
                     if (keyEvent.key == Key.Enter) {
                         // Appeler la fonction de recherche lorsque "Entrée" est pressée
-                        //viewModel.insertAllIngredient(searchQuery.text) // Mettre à jour la recherche dans le ViewModel
-                        viewModel.insertAllIngredient()
+                        viewModel.insertAllIngredient(searchQuery.text) // Mettre à jour la recherche dans le ViewModel
+                        //viewModel.insertAllIngredient()
                         true // Indiquer que l'événement a été consommé
                     } else {
                         false
@@ -205,29 +211,35 @@ fun BottomNavigationBar(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF1E1E1E))
-            .padding(16.dp),  // Ajoutez un peu de remplissage pour le style
+            .padding(10.dp),  // Ajoutez un peu de remplissage pour le style
         horizontalArrangement = Arrangement.SpaceAround,  // Espacement entre les boutons
         verticalAlignment = Alignment.CenterVertically
     ) {
         // Bouton pour naviguer vers l'écran Home
         Button(
             onClick = {  },
+            shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C))
         ) {
-            Text(text = "Home", color = Color.White)
+            Text(text = "Home", color = Color.Black)
         }
 
         // Bouton pour naviguer vers l'écran Cocktails
         Button(
             onClick = {  },
+            shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFFF00))
         ) {
-            Text(text = "Cocktails", color = Color.White)
+            Text(text = "Cocktails", color = Color.Black)
         }
 
         // Bouton pour naviguer vers l'écran Profile
         Button(
             onClick = {  },
+            shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0FF00))
         ) {
-            Text(text = "Profile", color = Color.White)
+            Text(text = "Random", color = Color.Black)
         }
     }
 }

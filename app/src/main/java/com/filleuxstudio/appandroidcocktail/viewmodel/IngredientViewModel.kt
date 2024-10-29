@@ -14,9 +14,9 @@ class IngredientViewModel: ViewModel() {
         get() = ingredientRepository.selectAll()
 
     val ingredient = _ingredient
-    fun insertAllIngredient() {
+    fun insertAllIngredient(ingredient: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            ingredientRepository.fetchData("vodka")
+            ingredientRepository.fetchData(ingredient.trim())
         }
     }
     fun  deleteAllIngredient() {
