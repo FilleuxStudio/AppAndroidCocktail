@@ -65,6 +65,7 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.1")
     implementation ("com.google.firebase:firebase-auth-ktx:22.0.0")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0")
+    implementation ("com.google.android.gms:play-services-auth:20.1.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

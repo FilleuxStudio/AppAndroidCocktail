@@ -2,7 +2,7 @@ package com.filleuxstudio.appandroidcocktail.architecture
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
+import com.filleuxstudio.appandroidcocktail.repository.FirebaseAuthRepository
 import com.filleuxstudio.appandroidcocktail.viewmodel.AuthViewModel
 
 class AuthViewModelFactory(
