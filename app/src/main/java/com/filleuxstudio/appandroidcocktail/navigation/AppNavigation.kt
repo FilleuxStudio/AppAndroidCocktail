@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.filleuxstudio.appandroidcocktail.screen.AuthenticationScreen
+import com.filleuxstudio.appandroidcocktail.screen.APIListViewScreen
 import com.filleuxstudio.appandroidcocktail.screen.HomepageScreen
 import com.filleuxstudio.appandroidcocktail.screen.RegisterScreen
 
@@ -18,8 +19,7 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
         composable("listFeature") {
-            // Placeholder for API List (Feature 2)
-
+            APIListViewScreen(navController)
         }
         composable("firebaseFeature") {
             // Placeholder for Firebase Authentication (Feature 3)

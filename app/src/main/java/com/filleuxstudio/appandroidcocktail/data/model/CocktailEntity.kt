@@ -1,8 +1,10 @@
+package com.filleuxstudio.appandroidcocktail.data.model
+
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 
-@Entity(tableName = "Cocktail")
+@Entity(tableName = "cocktail")
 data class CocktailEntity(
     @ColumnInfo(name = "name")
     val name: String,
@@ -154,7 +156,6 @@ data class CocktailEntity(
     @ColumnInfo(name = "date_modified")
     val dateModified: String
 ) {
-    @PrimaryKey
-    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 }
