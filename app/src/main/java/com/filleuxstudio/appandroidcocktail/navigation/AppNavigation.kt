@@ -8,6 +8,7 @@ import com.filleuxstudio.appandroidcocktail.screen.AuthenticationScreen
 import com.filleuxstudio.appandroidcocktail.screen.APIListViewScreen
 import com.filleuxstudio.appandroidcocktail.screen.HomepageScreen
 import com.filleuxstudio.appandroidcocktail.screen.RegisterScreen
+import com.filleuxstudio.appandroidcocktail.screen.CocktailsScreen
 
 @Composable
 fun AppNavigation(navController: NavHostController) {
@@ -22,14 +23,13 @@ fun AppNavigation(navController: NavHostController) {
             APIListViewScreen(navController)
         }
         composable("firebaseFeature") {
-            // Placeholder for Firebase Authentication (Feature 3)
             AuthenticationScreen(navController)
         }
-
         composable("signup") {
-            // Go to sign up page
             RegisterScreen(navController)
+        }
+        composable("cocktails") { // Add a new composable for the Cocktails screen
+            CocktailsScreen(navController)
         }
     }
 }
-
