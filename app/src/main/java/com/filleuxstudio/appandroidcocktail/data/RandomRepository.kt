@@ -11,16 +11,18 @@ import kotlinx.coroutines.flow.map
 class RandomRepository {
     private val cocktailDAODatabase = DatabaseInit.instance.mApplicationDatabase.CocktailDAO()
 
-    suspend fun fetchData() {
-        val cocktailByName =  RetrofitBuilderAPITheCocktail.getCocktailByRandom().GetCocktailRandom()
-        val cocktailByNameEntities = cocktailByName.toRoomEntitiesCocktail()
-        cocktailDAODatabase.insertAllCocktails(cocktailByNameEntities)
+    suspend fun fetchData(cocktailName: String) {
+        val cocktailDTO = RetrofitBuilderAPITheCocktail.getCocktailByName().GetCocktailName(cocktailName)
+
+        // Handle nullable drinks field
+        val cocktailEntities = cocktailDTO.drinks?.toRoomEntitiesCocktail() ?: emptyList()
+        cocktailDAODatabase.insertAllCocktails(cocktailEntities)
     }
+
 
     fun deleteAll() {
         cocktailDAODatabase.deleteAllCocktails()
     }
-
 
     fun selectAll(): Flow<List<CocktailObject>> {
         return cocktailDAODatabase.getAllCocktails().map { list ->

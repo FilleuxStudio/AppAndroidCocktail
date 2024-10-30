@@ -12,7 +12,7 @@ import retrofit2.http.Query
 
 object RetrofitBuilderAPITheCocktail {
     private const val BASE_URL = "https://www.thecocktaildb.com/api/json/v1/"
-    private const val  API_KEY = "1/"
+    private const val API_KEY = "1/"
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL + API_KEY)
@@ -28,26 +28,25 @@ object RetrofitBuilderAPITheCocktail {
 
 interface CocktailServiceByName {
     @GET("search.php")
-    suspend fun GetCocktailName(@Query("s") NameCocktail: String): List<CocktailDTO>
+    suspend fun GetCocktailName(@Query("s") NameCocktail: String): CocktailDTO
 }
 
 interface CocktailServiceByFirstLetter {
     @GET("search.php")
-    suspend fun GetCocktailFirstLetter(@Query("f") Letter: String): List<CocktailDTO>
+    suspend fun GetCocktailFirstLetter(@Query("f") Letter: String): CocktailDTO
 }
 
-interface CocktailServiceByIngredientName  {
+interface CocktailServiceByIngredientName {
     @GET("search.php")
     suspend fun GetCocktailIngredientName(@Query("i") IngredientName: String): Response<IngredientDTO>
 }
 
 interface CocktailServiceByRandom {
     @GET("random.php")
-    suspend fun GetCocktailRandom(): List<CocktailDTO>
+    suspend fun GetCocktailRandom(): CocktailDTO
 }
 
 interface CocktailServiceByAlcoholic {
     @GET("filter.php")
     suspend fun GetCocktailAlcoholic(@Query("a") Type: String): List<DrinkTypeDTO>
 }
-

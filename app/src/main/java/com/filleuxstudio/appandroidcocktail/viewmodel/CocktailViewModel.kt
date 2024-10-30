@@ -5,23 +5,30 @@ import androidx.lifecycle.viewModelScope
 import com.filleuxstudio.appandroidcocktail.data.CocktailsRepository
 import com.filleuxstudio.appandroidcocktail.data.model.CocktailObject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class CocktailViewModel: ViewModel() {
-    private val cocktailsRepository: CocktailsRepository by lazy { CocktailsRepository() }
-    private val _cocktail: Flow<List<CocktailObject>>
-        get() = cocktailsRepository.selectAll()
+class CocktailViewModel : ViewModel() {
+    private val repository: CocktailsRepository by lazy { CocktailsRepository() }
+    private val _cocktails = MutableStateFlow<List<CocktailObject>>(emptyList())
+    val cocktails: StateFlow<List<CocktailObject>> get() = _cocktails
 
-    val cocktail = _cocktail
-    fun insertAllCocktails() {
+    init {
+        loadDefaultCocktails()
+    }
+
+    fun loadDefaultCocktails() {
         viewModelScope.launch(Dispatchers.IO) {
-            cocktailsRepository.fetchData("Teee")
+            val defaultCocktails = repository.getDefaultCocktails() // Fetch a few default cocktails
+            _cocktails.value = defaultCocktails.distinctBy { it.nameDrink } // Remove duplicates
         }
     }
-    fun  deleteAllCocktails() {
+
+    fun searchCocktails(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            cocktailsRepository.deleteAll()
+            val searchResults = repository.searchCocktails(query)
+            _cocktails.value = searchResults.distinctBy { it.nameDrink } // Remove duplicates based on name
         }
     }
 }

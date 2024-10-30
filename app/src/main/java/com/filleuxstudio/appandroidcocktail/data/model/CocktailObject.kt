@@ -8,7 +8,9 @@ data class CocktailObject (
     val category: String,
     val  intructions: String,
     val  imageSource: String,
-    val  measure: String
+    val  measure: String,
+    val glass: String,
+    val dateInserted: String
 )
 
 fun List<CocktailEntity>.toUi(): List<CocktailObject> {
@@ -22,6 +24,8 @@ fun List<CocktailEntity>.toUi(): List<CocktailObject> {
             intructions = entity.instructions,
             imageSource = entity.imageSource ?: "",
             measure = entity.measure1 ?: "",
+            glass = entity.glass ?: "",
+            dateInserted = entity.dateModified ?: ""
         )
     }
 }
