@@ -90,12 +90,29 @@ fun CocktailList(cocktails: List<CocktailObject>) {
     var selectedCocktail by remember { mutableStateOf<CocktailObject?>(null) }
     var showDialog by remember { mutableStateOf(false) }
 
+    // Group cocktails by the first letter of their names
+    val groupedCocktails = cocktails.groupBy { cocktail ->
+        cocktail.nameDrink.firstOrNull()?.toString() ?: "#" // Group by first letter or '#' if missing
+    }
+
     LazyColumn {
-        items(cocktails) { cocktail ->
-            CocktailItem(cocktail) {
-                selectedCocktail = cocktail
-                showDialog = true
+        // Iterate over the grouped cocktails
+        groupedCocktails.forEach { (letter, cocktailList) ->
+            item {
+                HeaderItem(letter) // Display header for each group
             }
+
+            items(cocktailList) { cocktail ->
+                CocktailItem(cocktail) {
+                    selectedCocktail = cocktail
+                    showDialog = true
+                }
+            }
+        }
+
+        // Add a footer item at the end of the list
+        item {
+            FooterItem()
         }
     }
 
@@ -105,6 +122,38 @@ fun CocktailList(cocktails: List<CocktailObject>) {
         }
     }
 }
+
+@Composable
+fun HeaderItem(letter: String) {
+    // Displaying a letter as a header for each section; you can customize it further
+    Text(
+        text = letter,
+        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray)
+            .padding(vertical = 8.dp, horizontal = 16.dp)
+    )
+}
+
+@Composable
+fun FooterItem() {
+    // Displaying a simple footer at the end of the list
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.Gray)
+            .padding(vertical = 16.dp, horizontal = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "End of Cocktails List",
+            style = MaterialTheme.typography.bodyMedium,
+            color = Color.White
+        )
+    }
+}
+
 
 @Composable
 fun CocktailItem(cocktail: CocktailObject, onClick: () -> Unit) {
