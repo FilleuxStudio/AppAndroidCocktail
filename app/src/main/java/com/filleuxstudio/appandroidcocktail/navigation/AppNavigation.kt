@@ -28,8 +28,8 @@ fun AppNavigation(navController: NavHostController) {
         composable("signup") {
             RegisterScreen(navController)
         }
-        composable("cocktails") { // Add a new composable for the Cocktails screen
-            CocktailsScreen(navController)
+        composable("cocktails") {
+            CocktailsScreen() // Do not pass navController here if not needed
         }
     }
 }
