@@ -19,21 +19,31 @@ class IngredientRepository {
 //        //ingredientDAODatabase.insertIngredient(ingredientByNameEntities)
 //    }
 
-    suspend fun fetchData(ingredientName: String) {
+    suspend fun fetchData(ingredientName: String, onError: (String) -> Unit) {
         // Appel de l'API pour récupérer les ingrédients par nom
-        val response = RetrofitBuilderAPITheCocktail.getCocktailByIngredientName().GetCocktailIngredientName(ingredientName)
+        val response = RetrofitBuilderAPITheCocktail.getCocktailByIngredientName()
+            .GetCocktailIngredientName(ingredientName)
 
         // Vérification si la réponse est réussie et non nulle
         if (response.isSuccessful && response.body() != null) {
             // Récupération de l'objet IngredientDTO depuis la réponse
             val ingredientDTO = response.body()!!
+
+            // Vérification que "ingredients" n'est pas nul et contient des données
+            if (ingredientDTO.ingredients.isNullOrEmpty()) {
+                onError("Ingrédient non trouvé") // Appeler le callback pour informer l'utilisateur
+                return  // Sortie précoce de la fonction pour éviter de traiter des données incorrectes
+            }
+
             // Conversion des ingrédients en entités
             val ingredientEntities = ingredientDTO.toRoomEntityIngredient()
+
             // Insertion des entités dans la base de données
             ingredientDAODatabase.insertAllIngredients(ingredientEntities)
         } else {
             // Gestion des erreurs
             Log.e("IngredientRepository", "Erreur lors de la récupération des ingrédients: ${response.errorBody()}")
+            onError("Erreur lors de la récupération des ingrédients")
         }
     }
 

@@ -1,5 +1,7 @@
 package com.filleuxstudio.appandroidcocktail.screen
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -57,15 +59,23 @@ import com.filleuxstudio.appandroidcocktail.viewmodel.IngredientViewModel
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import kotlinx.coroutines.launch
 
 @Composable
 fun APIListViewScreen(navController: NavController) {
     val viewModel: IngredientViewModel = viewModel()
-    //val list = viewModel.ingredient.collectAsState(emptyList()).value
     val list = viewModel.ingredient.collectAsState().value
+    var errorMessage by remember { mutableStateOf("") }
+
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         bottomBar = {
             BottomNavigationBar(navController)
         }
@@ -77,16 +87,44 @@ fun APIListViewScreen(navController: NavController) {
                 .background(Color(0xf2f2f2ff))
                 .padding(16.dp)
         ) {
-            SearchBar(viewModel)
+           /* SearchBar(viewModel) { query ->
+                viewModel.insertAllIngredient(query) { message ->
+                    errorMessage = message
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(message)
+                    }
+                }
+            }*/
+            SearchBar(viewModel) { query ->
+                viewModel.insertAllIngredient(query) { message ->
+                    errorMessage = message
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(message)
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(16.dp))
             IngredientList(Modifier.padding(padding), list)
+            Spacer(modifier = Modifier.weight(1f))
         }
     }
 }
 
 @Composable
-fun SearchBar(viewModel: IngredientViewModel) {
+fun SearchBar(viewModel: IngredientViewModel, onSearch: (String) -> Unit) {
     var searchQuery by remember { mutableStateOf(TextFieldValue("")) }
+    var errorMessage by remember { mutableStateOf("") }
+    val focusManager = LocalFocusManager.current
+
+    Column {
+        if (errorMessage.isNotEmpty()) {
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -121,7 +159,8 @@ fun SearchBar(viewModel: IngredientViewModel) {
                 .onKeyEvent { keyEvent ->
                     if (keyEvent.key == Key.Enter) {
                         // Appeler la fonction de recherche lorsque "Entrée" est pressée
-                        viewModel.insertAllIngredient(searchQuery.text) // Mettre à jour la recherche dans le ViewModel
+                        onSearch(searchQuery.text)
+                        focusManager.clearFocus()
                         //viewModel.insertAllIngredient()
                         true // Indiquer que l'événement a été consommé
                     } else {

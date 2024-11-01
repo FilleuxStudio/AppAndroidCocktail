@@ -21,11 +21,12 @@ class IngredientViewModel: ViewModel() {
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     //val ingredient = _ingredient
-    fun insertAllIngredient(ingredient: String) {
+    fun insertAllIngredient(ingredient: String, onError: (String) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            ingredientRepository.fetchData(ingredient.trim())
+            ingredientRepository.fetchData(ingredient.trim(), onError)
         }
     }
+
     fun  deleteAllIngredient() {
         viewModelScope.launch(Dispatchers.IO) {
             ingredientRepository.deleteAll()
