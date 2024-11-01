@@ -5,6 +5,9 @@ import androidx.room.ColumnInfo
 
 @Entity(tableName = "Ingredient")
 data class IngredientEntity(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Long = 0, // L'ID sera généré automatiquement pour chaque enregistrement unique
 
     @ColumnInfo(name = "name")
     val name: String,
@@ -19,9 +22,8 @@ data class IngredientEntity(
     val isAlcoholic: String?,
 
     @ColumnInfo(name = "abv")
-    val abv: String?
-) {
-    @PrimaryKey
-    @ColumnInfo(name = "id")
-    var id: Long = 0
-}
+    val abv: String?,
+
+    @ColumnInfo(name = "timestamp")
+    val timestamp: Long = System.currentTimeMillis() // Définit la date/heure actuelle par défaut
+)

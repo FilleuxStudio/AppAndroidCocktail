@@ -53,6 +53,7 @@ class IngredientRepository {
 
     fun selectAll(): Flow<List<IngredientObject>> {
         return ingredientDAODatabase.getAllIngredients().map { list ->
+            Log.e("DatabaseItems", "Items in DB: ${list.size}")
             list.toUi()
         }
     }

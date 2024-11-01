@@ -2,6 +2,7 @@ package com.filleuxstudio.appandroidcocktail.screen
 
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -104,6 +105,7 @@ fun APIListViewScreen(navController: NavController) {
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
+            Log.e("eeeeeeeeee", list.count().toString())
             IngredientList(Modifier.padding(padding), list)
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -186,7 +188,7 @@ fun IngredientList(modifier: Modifier, listOfResult: List<IngredientObject>) {
             .padding(top = 16.dp)
     ) {
         items(listOfResult) { item ->
-            IngredientItem(name = item.nameIngredient) {
+            IngredientItem(ingredient = item) {
                 selectedIngredient = item
                 showDialog = true
             }
@@ -201,28 +203,35 @@ fun IngredientList(modifier: Modifier, listOfResult: List<IngredientObject>) {
 }
 
 @Composable
-fun IngredientItem(name: String, onClick: () -> Unit) {
-    Row(
+fun IngredientItem(ingredient:  IngredientObject, onClick: () -> Unit) {
+    Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
-            .background(Color(0xffffffff), shape = MaterialTheme.shapes.medium)
-            .padding(16.dp)
             .clickable(onClick = onClick),
-        verticalAlignment = Alignment.CenterVertically
+        shape = MaterialTheme.shapes.medium,
+        elevation = CardDefaults.cardElevation(8.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.icon_list),
-            contentDescription = name,
-            modifier = Modifier.size(48.dp)
-        )
-        Spacer(modifier = Modifier.width(16.dp))
-        Text(
-            text = name,
-            color = Color.Black,
-            fontSize = 18.sp,
-            fontWeight = FontWeight.Bold
-        )
+        Row(
+            modifier = Modifier
+                .background(Color(0xFFFFFFFF))
+                .padding(16.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = getIngredientImageResource(ingredient.nameIngredient)),
+                contentDescription = ingredient.nameIngredient,
+                modifier = Modifier.size(48.dp)
+            )
+            Spacer(modifier = Modifier.width(16.dp))
+            Text(
+                text = ingredient.nameIngredient,
+                color = Color.Black,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }
 
@@ -247,6 +256,23 @@ fun IngredientDetailDialog(ingredient: IngredientObject, onDismiss: () -> Unit) 
     )
 }
 
+@DrawableRes
+fun getIngredientImageResource(name: String): Int {
+    return when {
+        name.startsWith("wh", ignoreCase = true) -> R.drawable.whiskey
+        name.startsWith("w", ignoreCase = true) -> R.drawable.wine
+        name.startsWith("r", ignoreCase = true) -> R.drawable.rum
+        name.startsWith("b", ignoreCase = true) -> R.drawable.beer
+        name.startsWith("j", ignoreCase = true) -> R.drawable.jager
+        name.startsWith("ch", ignoreCase = true) -> R.drawable.champagne
+        name.startsWith("so", ignoreCase = true) -> R.drawable.soda
+        name.startsWith("t", ignoreCase = true) -> R.drawable.tonic
+        name.startsWith("g", ignoreCase = true) -> R.drawable.gin
+        // Ajoutez d'autres règles si nécessaire
+        else -> R.drawable.liquor // Image par défaut si aucun cas ne correspond
+    }
+}
+
 @Composable
 fun BottomNavigationBar(navController: NavController) {
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -262,7 +288,7 @@ fun BottomNavigationBar(navController: NavController) {
     ) {
         // Bouton pour naviguer vers l'écran Home
         Button(
-            onClick = { },
+            onClick = { navController.navigate(("homepage")) },
             shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C))
         ) {

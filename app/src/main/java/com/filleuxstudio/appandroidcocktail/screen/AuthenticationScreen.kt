@@ -54,7 +54,6 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
         .requestEmail()
         .build()
 
-
     val googleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(context, googleSignInOptions)
 
 
