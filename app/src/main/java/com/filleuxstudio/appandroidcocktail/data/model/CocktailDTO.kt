@@ -3,7 +3,7 @@ package com.filleuxstudio.appandroidcocktail.data.model
 import com.google.gson.annotations.SerializedName
 
 data class CocktailDTO(
-@SerializedName("drinks") val drinks: List<Drink>
+    @SerializedName("drinks") val drinks: List<Drink>?
 )
 
 data class Drink(
@@ -111,10 +111,10 @@ fun Drink.toRoom(): CocktailEntity {
         imageSource = imageSource ?: "",
         imageAttribution = imageAttribution ?: "",
         creativeCommonsConfirmed = creativeCommonsConfirmed ?: "",
-        dateModified = dateModified
+        dateModified = dateModified ?: ""
     )
 }
 
-fun List<CocktailDTO>.toRoomEntitiesCocktail(): List<CocktailEntity> {
-    return this.flatMap { it.drinks }.map { it.toRoom() }
+fun List<Drink>.toRoomEntitiesCocktail(): List<CocktailEntity> {
+    return this.map { it.toRoom() }
 }

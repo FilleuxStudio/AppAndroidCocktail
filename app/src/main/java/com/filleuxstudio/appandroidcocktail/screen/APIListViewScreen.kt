@@ -128,7 +128,10 @@ fun SearchBar(viewModel: IngredientViewModel, onSearch: (String) -> Unit) {
 
     Box(
         modifier = Modifier
-            .background(Color(0xffffffff), shape = MaterialTheme.shapes.medium) // Couleur de fond appliquée d'abord
+            .background(
+                Color(0xffffffff),
+                shape = MaterialTheme.shapes.medium
+            ) // Couleur de fond appliquée d'abord
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
     ) {
@@ -178,7 +181,9 @@ fun IngredientList(modifier: Modifier, listOfResult: List<IngredientObject>) {
     var showDialog by remember { mutableStateOf(false) }
 
     LazyColumn(
-        modifier = Modifier.fillMaxHeight().padding(top = 16.dp)
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(top = 16.dp)
     ) {
         items(listOfResult) { item ->
             IngredientItem(name = item.nameIngredient) {
@@ -257,7 +262,7 @@ fun BottomNavigationBar(navController: NavController) {
     ) {
         // Bouton pour naviguer vers l'écran Home
         Button(
-            onClick = {  },
+            onClick = { },
             shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C))
         ) {
@@ -266,7 +271,7 @@ fun BottomNavigationBar(navController: NavController) {
 
         // Bouton pour naviguer vers l'écran Cocktails
         Button(
-            onClick = {  },
+            onClick = { navController.navigate("cocktails") },
             shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFFFF00))
         ) {
@@ -275,7 +280,7 @@ fun BottomNavigationBar(navController: NavController) {
 
         // Bouton pour naviguer vers l'écran Profile
         Button(
-            onClick = {  },
+            onClick = { },
             shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0FF00))
         ) {
