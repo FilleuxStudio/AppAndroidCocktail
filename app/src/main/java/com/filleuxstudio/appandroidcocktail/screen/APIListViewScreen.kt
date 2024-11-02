@@ -306,7 +306,7 @@ fun BottomNavigationBar(navController: NavController) {
 
         // Bouton pour naviguer vers l'écran Profile
         Button(
-            onClick = { },
+            onClick = { navController.navigate("random")},
             shape = RoundedCornerShape(5.dp), // Rayon de bordure de 5 dp
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFB0FF00))
         ) {
