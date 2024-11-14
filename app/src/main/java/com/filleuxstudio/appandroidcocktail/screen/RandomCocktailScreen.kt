@@ -44,7 +44,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                             containerColor = Color(0xFFBEFA91)
                         )
                     ) {
-                        Text(text = "Random")
+                        Text(text = "Random", color = Color.Black)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
