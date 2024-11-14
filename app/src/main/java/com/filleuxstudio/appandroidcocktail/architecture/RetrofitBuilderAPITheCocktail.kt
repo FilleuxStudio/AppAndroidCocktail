@@ -3,6 +3,7 @@ package com.filleuxstudio.appandroidcocktail.architecture
 import com.filleuxstudio.appandroidcocktail.data.model.CocktailDTO
 import com.filleuxstudio.appandroidcocktail.data.model.DrinkTypeDTO
 import com.filleuxstudio.appandroidcocktail.data.model.IngredientDTO
+import com.filleuxstudio.appandroidcocktail.data.model.RandomCocktailDTO
 import com.google.gson.GsonBuilder
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -43,7 +44,7 @@ interface CocktailServiceByIngredientName {
 
 interface CocktailServiceByRandom {
     @GET("random.php")
-    suspend fun GetCocktailRandom(): CocktailDTO
+    suspend fun GetCocktailRandom(): RandomCocktailDTO
 }
 
 interface CocktailServiceByAlcoholic {
