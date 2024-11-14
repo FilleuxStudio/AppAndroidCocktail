@@ -20,15 +20,22 @@ class CocktailViewModel : ViewModel() {
 
     fun loadDefaultCocktails() {
         viewModelScope.launch(Dispatchers.IO) {
-            val defaultCocktails = repository.getDefaultCocktails() // Fetch a few default cocktails
-            _cocktails.value = defaultCocktails.distinctBy { it.nameDrink } // Remove duplicates
+            val defaultCocktails = repository.getDefaultCocktails()
+            _cocktails.value = defaultCocktails.distinctBy { it.nameDrink }
         }
     }
 
     fun searchCocktails(query: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val searchResults = repository.searchCocktails(query)
-            _cocktails.value = searchResults.distinctBy { it.nameDrink } // Remove duplicates based on name
+            _cocktails.value = searchResults.distinctBy { it.nameDrink }
+        }
+    }
+
+    fun deleteAllCocktails() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAll()
+            _cocktails.value = emptyList() // Clear the list after deletion
         }
     }
 }
