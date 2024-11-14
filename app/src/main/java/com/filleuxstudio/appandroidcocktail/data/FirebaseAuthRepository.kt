@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.repository
+package com.filleuxstudio.appandroidcocktail.data
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthException

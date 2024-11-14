@@ -2,8 +2,8 @@ package com.filleuxstudio.appandroidcocktail.architecture
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.filleuxstudio.appandroidcocktail.repository.FirebaseAuthRepository
-import com.filleuxstudio.appandroidcocktail.viewmodel.AuthViewModel
+import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
+import com.filleuxstudio.appandroidcocktail.view.viewmodel.AuthViewModel
 
 // Factory personnalisée pour créer une instance de AuthViewModel avec un constructeur spécifique
 class AuthViewModelFactory(

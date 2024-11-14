@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.screen
+package com.filleuxstudio.appandroidcocktail.view.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
@@ -25,7 +25,7 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.filleuxstudio.appandroidcocktail.R
 import com.filleuxstudio.appandroidcocktail.data.model.CocktailObject
-import com.filleuxstudio.appandroidcocktail.viewmodel.CocktailViewModel
+import com.filleuxstudio.appandroidcocktail.view.viewmodel.CocktailViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable

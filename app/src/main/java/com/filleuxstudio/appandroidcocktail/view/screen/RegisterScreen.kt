@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.screen
+package com.filleuxstudio.appandroidcocktail.view.screen
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -18,9 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.filleuxstudio.appandroidcocktail.viewmodel.AuthViewModel
+import com.filleuxstudio.appandroidcocktail.view.viewmodel.AuthViewModel
 import com.filleuxstudio.appandroidcocktail.architecture.AuthViewModelFactory
-import com.filleuxstudio.appandroidcocktail.repository.FirebaseAuthRepository
+import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
 import com.google.firebase.auth.FirebaseAuth
 
 @Composable

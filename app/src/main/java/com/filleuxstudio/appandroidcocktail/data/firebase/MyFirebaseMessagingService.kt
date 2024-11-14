@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.firebase.data
+package com.filleuxstudio.appandroidcocktail.data.firebase
 
 import android.annotation.SuppressLint
 import android.app.NotificationChannel

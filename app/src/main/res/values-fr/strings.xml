@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">AppAndroidCocktail</string>
    <string name="default_web_client_id">619670854309-s581se8jdsga3b9ltr7f7n0ieqi5su4v.apps.googleusercontent.com</string>
-    <string name="title_home" >Welcome to the Cocktail App</string>
+    <string name="title_home">Bienvenue dans l\'application Cocktail</string>
 </resources>

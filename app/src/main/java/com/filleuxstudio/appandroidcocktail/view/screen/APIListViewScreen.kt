@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.screen
+package com.filleuxstudio.appandroidcocktail.view.screen
 
 import android.util.Log
 import android.widget.Toast
@@ -57,7 +57,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.filleuxstudio.appandroidcocktail.R
 import com.filleuxstudio.appandroidcocktail.data.model.IngredientObject
-import com.filleuxstudio.appandroidcocktail.viewmodel.IngredientViewModel
+import com.filleuxstudio.appandroidcocktail.view.viewmodel.IngredientViewModel
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -141,8 +141,15 @@ fun SearchBar(viewModel: IngredientViewModel, onSearch: (String) -> Unit) {
     ) {
         BasicTextField(
             value = searchQuery,
-            onValueChange = { newValue ->
+            /*onValueChange = { newValue ->
                 searchQuery = newValue
+            },*/
+            onValueChange = {
+                searchQuery = it
+                if (it.text.length > 2) {
+                    //viewModel.searchCocktails(it)
+                    onSearch(it.text)// Rechercher des cocktails si le champ n'est pas vide
+                }
             },
             textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
             decorationBox = { innerTextField ->
@@ -163,7 +170,7 @@ fun SearchBar(viewModel: IngredientViewModel, onSearch: (String) -> Unit) {
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .onKeyEvent { keyEvent ->
+                /*.onKeyEvent { keyEvent ->
                     if (keyEvent.key == Key.Enter) {
                         // Appeler la fonction de recherche lorsque "Entrée" est pressée
                         onSearch(searchQuery.text)
@@ -173,7 +180,7 @@ fun SearchBar(viewModel: IngredientViewModel, onSearch: (String) -> Unit) {
                     } else {
                         false
                     }
-                }
+                }*/
         )
     }
 }
@@ -184,12 +191,14 @@ fun IngredientList(modifier: Modifier, listOfResult: List<IngredientObject>) {
     var selectedIngredient by remember { mutableStateOf<IngredientObject?>(null) }
     var showDialog by remember { mutableStateOf(false) }
 
+    val distinctIngredients = listOfResult.distinct() // Eliminer les doublons
+
     LazyColumn(
         modifier = Modifier
             .fillMaxHeight()
             .padding(top = 16.dp)
     ) {
-        items(listOfResult) { item ->
+        items(distinctIngredients, key = { it.nameIngredient }) { item -> // Assurez-vous d'utiliser une clé unique
             IngredientItem(ingredient = item) {
                 selectedIngredient = item
                 showDialog = true
