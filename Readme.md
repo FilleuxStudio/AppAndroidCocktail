@@ -105,4 +105,12 @@ Voici la section mise à jour avec les technologies supplémentaires :
 
 ## Captures d'écran
 
-<img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145903.jpg" />
+<div align="center">
+    <img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145903.jpg" width="250"/>
+    <img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145908.jpg" width="250"/>
+    <img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145917.jpg" width="250"/>
+    <img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145924.jpg" width="250"/>
+    <img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145929.jpg" width="250"/>
+    <img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145933.jpg" width="250"/>
+</div>
+
