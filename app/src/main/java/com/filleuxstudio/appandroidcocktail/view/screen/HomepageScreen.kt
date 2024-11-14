@@ -113,11 +113,11 @@ fun HomepageScreen(
             if (userId != null) {
                 // Affichage de l'ID utilisateur si l'utilisateur est connecté
                 Text(
-                    text = "Your ID : $userId",
+                    text = stringResource(R.string.libelle_your_id) + "$userId",
                     fontWeight = FontWeight.Bold
                 )
             } else {
-                Text("Connect to retrieve your account ID")
+                Text(stringResource(R.string.libelle_connect_to_retrieve_id))
             }
 
             // Bouton pour naviguer vers la liste API
@@ -131,7 +131,7 @@ fun HomepageScreen(
                     .border(2.dp, blackOutline, RoundedCornerShape(16.dp))
             ) {
                 Text(
-                    text = "Go to API List",
+                    text = stringResource(R.string.libelle_go_to_api_list),
                     color = Color.White,
                     fontSize = 16.sp,
                     modifier = Modifier.padding(8.dp)
@@ -148,7 +148,7 @@ fun HomepageScreen(
                     .border(2.dp, blackOutline, RoundedCornerShape(16.dp))
             ) {
                 Text(
-                    text = "Go to Firebase Auth",
+                    text = stringResource(R.string.libelle_go_to_firebase_auth),
                     color = Color.Black,
                     fontSize = 16.sp,
                     modifier = Modifier.padding(8.dp)
@@ -165,7 +165,7 @@ fun HomepageScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Team Members: Dimitri, Noah, Kylian",
+                text = "Team Members : Dimitri, Noah, Kylian",
                 color = Color.Gray,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Medium

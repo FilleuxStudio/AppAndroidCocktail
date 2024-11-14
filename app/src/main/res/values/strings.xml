@@ -2,4 +2,45 @@
     <string name="app_name">AppAndroidCocktail</string>
    <string name="default_web_client_id">619670854309-s581se8jdsga3b9ltr7f7n0ieqi5su4v.apps.googleusercontent.com</string>
     <string name="title_home" >Welcome to the Cocktail App</string>
+    <string name="libelle_recherche_ingredients" >Search ingredients...</string>
+
+
+    <string name="libelle_your_id" >Your ID : </string>
+    <string name="libelle_connect_to_retrieve_id" >Connect to retrieve your account ID</string>
+    <string name="libelle_go_to_firebase_auth" >Go to Firebase Auth</string>
+    <string name="libelle_go_to_api_list" >Go to API List</string>
+    <string name="libelle_team_members" >Team Members : </string>
+
+
+    <string name="libelle_random_cocktail">Random Cocktail</string>
+    <string name="libelle_random">Random</string>
+    <string name="libelle_unknown_error">Unknown Error</string>
+    <string name="libelle_category">Category: </string>
+    <string name="description_cocktail_image">Cocktail Image</string>
+    <string name="instructions_label">Instructions : </string>
+    <string name="ingredients_label">Ingredients : </string>
+    <string name="press_random_message">Press \'Random\' to load a cocktail</string>
+
+
+   <string name="delete_all_button_text">Delete All</string>
+   <string name="search_bar_hint">Search cocktails...</string>
+   <string name="search_icon_description">Search Icon</string>
+   <string name="footer_text">End of Cocktails List</string>
+   <string name="cocktail_image_description">Cocktail Image</string>
+   <string name="dialog_close_button">Close</string>
+
+
+    <string name="screen_title_authentication">Connection</string>
+    <string name="label_password">Password</string>
+    <string name="button_login">Login</string>
+    <string name="button_register_prompt">Not yet registered? Click here to register!</string>
+    <string name="button_google_sign_in">Login with Google</string>
+    <string name="welcome_user_message">Welcome, logged-in user :</string>
+    <string name="button_logout">Logout</string>
+
+    <string name="icon_back_description">Back</string>
+    <string name="screen_title_register">Register</string>
+    <string name="label_email">Email</string>
+    <string name="link_already_have_account">Already have an account ? Click here !</string>
+
 </resources>
