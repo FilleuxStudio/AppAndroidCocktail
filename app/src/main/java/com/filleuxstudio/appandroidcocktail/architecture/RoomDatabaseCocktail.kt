@@ -19,7 +19,7 @@ import com.filleuxstudio.appandroidcocktail.data.model.RandomCocktailEntity
         IngredientEntity::class,
         RandomCocktailEntity::class
     ],
-    version = 6,
+    version = 9,
     exportSchema = false
 )
 abstract class RoomDatabaseCocktail : RoomDatabase() {

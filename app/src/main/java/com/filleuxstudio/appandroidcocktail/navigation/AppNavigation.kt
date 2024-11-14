@@ -30,7 +30,7 @@ fun AppNavigation(navController: NavHostController) {
             RegisterScreen(navController)
         }
         composable("cocktails") {
-            CocktailsScreen() // Do not pass navController here if not needed
+            CocktailsScreen(navController) // Do not pass navController here if not needed
         }
         composable("random"){
             RandomCocktailScreen(navController)
