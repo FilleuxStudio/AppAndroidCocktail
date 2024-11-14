@@ -9,30 +9,39 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+// ViewModel pour gérer les données des cocktails aléatoires
 class RandomCocktailViewModel : ViewModel() {
+    // Instance du repository pour accéder aux cocktails aléatoires
     private val randomCocktailRepository: RandomCocktailRepository by lazy { RandomCocktailRepository() }
 
-    // StateFlow pour le cocktail actuel affiché
+    // StateFlow pour contenir le cocktail aléatoire actuel
     private val _currentCocktail = MutableStateFlow<RandomCocktailObject?>(null)
+    // StateFlow pour observer le cocktail actuel
     val currentCocktail: StateFlow<RandomCocktailObject?> = _currentCocktail
 
-    // StateFlow pour le message d'erreur
+    // StateFlow pour contenir les messages d'erreur
     private val _errorMessage = MutableStateFlow<String?>(null)
+    // StateFlow pour observer les erreurs
     val errorMessage: StateFlow<String?> = _errorMessage
 
-    // Récupère un cocktail aléatoire depuis l'API
+    // Fonction pour récupérer un cocktail aléatoire depuis l'API
     fun fetchRandomCocktail() {
+        // Lance une coroutine pour exécuter la tâche de manière asynchrone
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _errorMessage.value = null // Réinitialiser les erreurs
-                val cocktail = randomCocktailRepository.fetchRandomCocktail {  }
+                // Réinitialise le message d'erreur
+                _errorMessage.value = null
+                // Appelle la méthode du repository pour récupérer un cocktail aléatoire
+                val cocktail = randomCocktailRepository.fetchRandomCocktail {}
 
+                // Vérifie si un cocktail a été récupéré
                 if (cocktail != null) {
-                    _currentCocktail.value = cocktail
+                    _currentCocktail.value = cocktail // Met à jour le StateFlow avec le cocktail récupéré
                 } else {
-                    _errorMessage.value = "No cocktail found."
+                    _errorMessage.value = "No cocktail found." // Met à jour le StateFlow avec un message d'erreur
                 }
             } catch (e: Exception) {
+                // Gère les exceptions et met à jour le StateFlow avec un message d'erreur
                 _errorMessage.value = "Failed to load cocktail: ${e.message}"
             }
         }
