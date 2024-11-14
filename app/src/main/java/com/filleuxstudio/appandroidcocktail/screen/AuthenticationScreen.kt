@@ -45,16 +45,16 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
     val errorMessage by viewModel.errorMessage.collectAsState()
     val user by viewModel.user.collectAsState()
 
-    val context = LocalContext.current // Context nécessaire pour afficher le Toast
+    val context = LocalContext.current // Contexte nécessaire pour afficher un Toast
 
-    // Affichage d'un Toast si l'utilisateur est connecté
+    // Afficher un Toast lorsque l'utilisateur est connecté
     LaunchedEffect(user) {
         if (user != null) {
             Toast.makeText(context, "Vous êtes connecté !", Toast.LENGTH_SHORT).show()
         }
     }
 
-    // Configuration Google Sign-In
+    // Configuration de la connexion Google Sign-In
     val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(Secrets.GOOGLE_CLIENT_ID)
         .requestEmail()
@@ -62,6 +62,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
 
     val googleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(context as Activity, googleSignInOptions)
 
+    // Gérer le résultat de l'activité pour la connexion avec Google
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
@@ -86,7 +87,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Header avec flèche de retour
+        // En-tête avec un bouton de retour
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -109,7 +110,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
         Spacer(modifier = Modifier.height(24.dp))
 
         if (user == null) {
-            // Formulaire de connexion
+            // Formulaire de connexion pour les utilisateurs non connectés
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -123,6 +124,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    // Champ de texte pour l'email
                     TextField(
                         value = email,
                         onValueChange = { email = it },
@@ -131,6 +133,8 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         singleLine = true
                     )
                     Spacer(modifier = Modifier.height(12.dp))
+
+                    // Champ de texte pour le mot de passe
                     TextField(
                         value = password,
                         onValueChange = { password = it },
@@ -141,6 +145,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                     )
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    // Affichage des erreurs, si nécessaire
                     if (errorMessage != null) {
                         Text(
                             text = errorMessage!!,
@@ -151,25 +156,26 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         Spacer(modifier = Modifier.height(8.dp))
                     }
 
+                    // Bouton de connexion
                     Button(
                         onClick = {
                             viewModel.signIn(email, password)
                         },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp),
+                        modifier = Modifier.padding(vertical = 8.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(text = "Login", color = Color.White)
                     }
 
+                    // Bouton pour naviguer vers la page d'inscription
                     TextButton(onClick = { navController.navigate("signup") }) {
                         Text("Not yet registered? Click here to register!", color = Color(0xFFFF4C4C))
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Bouton pour se connecter avec Google
+                    // Bouton pour la connexion Google
                     Button(
                         onClick = {
                             val signInIntent = googleSignInClient.signInIntent
@@ -188,7 +194,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
 
             Spacer(modifier = Modifier.height(24.dp))
         } else {
-            // Message pour utilisateur connecté
+            // Message et bouton de déconnexion pour les utilisateurs connectés
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()

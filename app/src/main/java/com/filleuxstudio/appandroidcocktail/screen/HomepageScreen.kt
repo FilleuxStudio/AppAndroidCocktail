@@ -26,23 +26,23 @@ fun HomepageScreen(
     onNavigateToList: () -> Unit,
     onNavigateToFirebase: () -> Unit
 ) {
-    // Colors from the cocktail image
-    val redColor = Color(0xFFFF4C4C) // Red from the cocktail
-    val yellowColor = Color(0xFFFFE773) // Yellow
-    val greenColor = Color(0xFFBEFA91) // Green
+    // Couleurs issues de l'image du cocktail
+    val redColor = Color(0xFFFF4C4C) // Rouge du cocktail
+    val yellowColor = Color(0xFFFFE773) // Jaune
+    val greenColor = Color(0xFFBEFA91) // Vert
     val blackOutline = Color.Black
 
     // Récupérer l'utilisateur connecté
     val currentUser = FirebaseAuth.getInstance().currentUser
     val userId = currentUser?.uid
 
-    // Background with circles in red, yellow, and green
+    // Arrière-plan avec des cercles colorés en rouge, jaune, et vert
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
     ) {
-        // Green circle (top left)
+        // Cercle vert (coin supérieur gauche)
         Box(
             modifier = Modifier
                 .size(90.dp)
@@ -50,7 +50,7 @@ fun HomepageScreen(
                 .background(greenColor, shape = CircleShape)
         )
 
-        // Red circle (top right)
+        // Cercle rouge (coin supérieur droit)
         Box(
             modifier = Modifier
                 .size(70.dp)
@@ -58,7 +58,7 @@ fun HomepageScreen(
                 .background(redColor, shape = CircleShape)
         )
 
-        // Smaller yellow circle (middle)
+        // Petit cercle jaune (milieu)
         Box(
             modifier = Modifier
                 .size(50.dp)
@@ -66,7 +66,7 @@ fun HomepageScreen(
                 .background(yellowColor, shape = CircleShape)
         )
 
-        // Green circle (bottom left)
+        // Cercle vert (coin inférieur gauche)
         Box(
             modifier = Modifier
                 .size(80.dp)
@@ -74,7 +74,7 @@ fun HomepageScreen(
                 .background(greenColor, shape = CircleShape)
         )
 
-        // Red circle (bottom right)
+        // Cercle rouge (coin inférieur droit)
         Box(
             modifier = Modifier
                 .size(70.dp)
@@ -82,7 +82,7 @@ fun HomepageScreen(
                 .background(redColor, shape = CircleShape)
         )
 
-        // Main content: image, text, and buttons
+        // Contenu principal : image, texte, et boutons
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -90,7 +90,7 @@ fun HomepageScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Cocktail image
+            // Image de cocktail
             Image(
                 painter = painterResource(id = R.drawable.cocktail),
                 contentDescription = "Cocktail Image",
@@ -100,7 +100,7 @@ fun HomepageScreen(
                 contentScale = ContentScale.Fit
             )
 
-            // Welcome text
+            // Texte de bienvenue
             Text(
                 text = "Welcome to the Cocktail App",
                 color = Color.Black,
@@ -119,7 +119,7 @@ fun HomepageScreen(
                 Text("Connect to retrieve your account ID")
             }
 
-            // Button to navigate to API List
+            // Bouton pour naviguer vers la liste API
             Button(
                 onClick = onNavigateToList,
                 colors = ButtonDefaults.buttonColors(containerColor = redColor),
@@ -137,7 +137,7 @@ fun HomepageScreen(
                 )
             }
 
-            // Button to navigate to Firebase Authentication
+            // Bouton pour naviguer vers l'authentification Firebase
             Button(
                 onClick = onNavigateToFirebase,
                 colors = ButtonDefaults.buttonColors(containerColor = yellowColor),
@@ -155,7 +155,7 @@ fun HomepageScreen(
             }
         }
 
-        // Bottom section to display team members' names
+        // Section en bas pour afficher les noms des membres de l'équipe
         Column(
             modifier = Modifier
                 .fillMaxWidth()

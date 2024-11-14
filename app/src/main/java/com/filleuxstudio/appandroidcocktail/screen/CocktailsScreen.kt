@@ -44,9 +44,11 @@ fun CocktailsScreen(navController: NavController) {
                     .padding(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                // Barre de recherche avec champ de texte et bouton de suppression
                 SearchBar(viewModel, modifier = Modifier.weight(1f))
                 DeleteAllButton(viewModel)
             }
+            // Affichage de la liste des cocktails
             CocktailList(cocktails)
         }
     }
@@ -54,6 +56,7 @@ fun CocktailsScreen(navController: NavController) {
 
 @Composable
 fun DeleteAllButton(viewModel: CocktailViewModel) {
+    // Bouton pour supprimer tous les cocktails de la liste
     Button(
         onClick = { viewModel.deleteAllCocktails() },
         colors = ButtonDefaults.buttonColors(
@@ -80,14 +83,15 @@ fun SearchBar(viewModel: CocktailViewModel, modifier: Modifier = Modifier) {
             onValueChange = {
                 searchQuery = it
                 if (it.isNotEmpty()) {
-                    viewModel.searchCocktails(it)
+                    viewModel.searchCocktails(it) // Rechercher des cocktails si le champ n'est pas vide
                 } else {
-                    viewModel.loadDefaultCocktails()
+                    viewModel.loadDefaultCocktails() // Charger les cocktails par défaut si le champ est vide
                 }
             },
             textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
             decorationBox = { innerTextField ->
                 Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Icône de recherche
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
                         contentDescription = "Search Icon",
@@ -110,25 +114,27 @@ fun CocktailList(cocktails: List<CocktailObject>) {
     var selectedCocktail by remember { mutableStateOf<CocktailObject?>(null) }
     var showDialog by remember { mutableStateOf(false) }
 
+    // Regroupement des cocktails par la première lettre de leur nom
     val groupedCocktails = cocktails.groupBy { cocktail ->
         cocktail.nameDrink.firstOrNull()?.toString() ?: "#"
     }
 
     LazyColumn {
         groupedCocktails.forEach { (letter, cocktailList) ->
-            item { HeaderItem(letter) }
+            item { HeaderItem(letter) } // Affichage de l'en-tête pour chaque groupe
 
             items(cocktailList) { cocktail ->
                 CocktailItem(cocktail) {
                     selectedCocktail = cocktail
-                    showDialog = true
+                    showDialog = true // Afficher les détails du cocktail au clic
                 }
             }
         }
 
-        item { FooterItem() }
+        item { FooterItem() } // Ajouter un pied de page à la fin de la liste
     }
 
+    // Affichage du dialogue de détail si un cocktail est sélectionné
     if (showDialog && selectedCocktail != null) {
         CocktailDetailDialog(cocktail = selectedCocktail!!) {
             showDialog = false
@@ -138,6 +144,7 @@ fun CocktailList(cocktails: List<CocktailObject>) {
 
 @Composable
 fun HeaderItem(letter: String) {
+    // En-tête pour chaque groupe de cocktails, basé sur la première lettre
     Text(
         text = letter,
         style = MaterialTheme.typography.titleMedium,
@@ -150,6 +157,7 @@ fun HeaderItem(letter: String) {
 
 @Composable
 fun FooterItem() {
+    // Pied de page pour indiquer la fin de la liste
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -167,6 +175,7 @@ fun FooterItem() {
 
 @Composable
 fun CocktailItem(cocktail: CocktailObject, onClick: () -> Unit) {
+    // Élément de la liste de cocktails avec image, nom, et clic pour voir les détails
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -188,6 +197,7 @@ fun CocktailItem(cocktail: CocktailObject, onClick: () -> Unit) {
 
 @Composable
 fun CocktailDetailDialog(cocktail: CocktailObject, onDismiss: () -> Unit) {
+    // Dialogue pour afficher les détails d'un cocktail sélectionné
     AlertDialog(
         onDismissRequest = onDismiss,
         modifier = Modifier.fillMaxWidth(0.9f),
