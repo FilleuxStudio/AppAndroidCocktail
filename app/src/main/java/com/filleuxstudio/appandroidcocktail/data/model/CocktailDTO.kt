@@ -1,11 +1,16 @@
 package com.filleuxstudio.appandroidcocktail.data.model
 
+// Importation des annotations pour la sérialisation JSON avec Gson
 import com.google.gson.annotations.SerializedName
 
+// Data class principale représentant un DTO (Data Transfer Object) pour un cocktail.
+// Elle contient une liste de boissons (`Drink`) pouvant être nulle.
 data class CocktailDTO(
     @SerializedName("drinks") val drinks: List<Drink>?
 )
 
+// Data class représentant les informations d'une boisson (Drink).
+// Chaque champ utilise @SerializedName pour lier les noms JSON aux propriétés Kotlin.
 data class Drink(
     @SerializedName("idDrink") val id: String,
     @SerializedName("strDrink") val name: String,
@@ -60,6 +65,8 @@ data class Drink(
     @SerializedName("dateModified") val dateModified: String
 )
 
+// Extension fonctionnelle pour convertir un objet Drink en une entité Room `CocktailEntity`.
+// Utilise l'opérateur Elvis (`?:`) pour remplacer les valeurs nulles par des chaînes vides.
 fun Drink.toRoom(): CocktailEntity {
     return CocktailEntity(
         name = name ?: "",
@@ -115,6 +122,7 @@ fun Drink.toRoom(): CocktailEntity {
     )
 }
 
+// Extension pour convertir une liste de `Drink` en une liste d'entités Room `CocktailEntity`.
 fun List<Drink>.toRoomEntitiesCocktail(): List<CocktailEntity> {
     return this.map { it.toRoom() }
 }

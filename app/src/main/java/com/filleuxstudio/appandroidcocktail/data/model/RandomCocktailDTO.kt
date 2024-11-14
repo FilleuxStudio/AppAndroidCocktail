@@ -2,6 +2,7 @@ package com.filleuxstudio.appandroidcocktail.data.model
 
 import com.google.gson.annotations.SerializedName
 
+// Représente un objet DTO (Data Transfer Object) contenant une liste de cocktails aléatoires.
 data class RandomCocktailDTO(
     @SerializedName("drinks") val drinks: List<RandomCocktailDetailDTO>
 )
@@ -26,7 +27,8 @@ data class RandomCocktailDetailDTO(
     @SerializedName("strMeasure5") val measure5: String?
 )
 
-// Convertit RandomCocktailDetailDTO en RandomCocktailEntity pour le stockage en base de données
+// Fonction d'extension pour convertir un DTO `RandomCocktailDetailDTO` en une entité `RandomCocktailEntity` pour le stockage dans la base de données.
+// Les ingrédients et les mesures sont stockés sous forme de chaînes séparées par des virgules.
 fun RandomCocktailDetailDTO.toRoom(): RandomCocktailEntity {
     val ingredients = listOfNotNull(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5)
     val measures = listOfNotNull(measure1, measure2, measure3, measure4, measure5)
@@ -43,6 +45,8 @@ fun RandomCocktailDetailDTO.toRoom(): RandomCocktailEntity {
 }
 
 
+// Fonction d'extension pour convertir une entité `RandomCocktailEntity` en un objet UI `RandomCocktailObject`.
+// Cette transformation est utilisée pour afficher les données dans l'interface utilisateur.
 fun RandomCocktailEntity.toUi(): RandomCocktailObject {
     return RandomCocktailObject(
         name = name,
@@ -55,6 +59,9 @@ fun RandomCocktailEntity.toUi(): RandomCocktailObject {
         measures = measures?.split(", ") ?: emptyList()
     )
 }
+
+// Fonction d'extension pour convertir un DTO `RandomCocktailDetailDTO` en un objet UI `RandomCocktailObject`.
+// Cette transformation est utilisée pour afficher directement les données d'un cocktail dans l'interface utilisateur.
 fun RandomCocktailDetailDTO.toUi(): RandomCocktailObject {
     val ingredients = listOfNotNull(ingredient1, ingredient2, ingredient3, ingredient4, ingredient5)
     val measures = listOfNotNull(measure1, measure2, measure3, measure4, measure5)
