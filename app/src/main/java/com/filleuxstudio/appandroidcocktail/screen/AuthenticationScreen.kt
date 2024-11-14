@@ -1,7 +1,7 @@
 package com.filleuxstudio.appandroidcocktail.screen
 
 import android.app.Activity
-import android.content.Intent
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.material3.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,42 +45,41 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
     val errorMessage by viewModel.errorMessage.collectAsState()
     val user by viewModel.user.collectAsState()
 
-    val context = LocalContext.current as Activity
+    val context = LocalContext.current // Contexte nécessaire pour afficher un Toast
 
-    // Configuration Google Sign- en utilisant l'ID client de Secrets.kt
+    // Afficher un Toast lorsque l'utilisateur est connecté
+    LaunchedEffect(user) {
+        if (user != null) {
+            Toast.makeText(context, "Vous êtes connecté !", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Configuration de la connexion Google Sign-In
     val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(Secrets.GOOGLE_CLIENT_ID)
         .requestEmail()
         .build()
 
-    val googleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(context, googleSignInOptions)
+    val googleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(context as Activity, googleSignInOptions)
 
-
+    // Gérer le résultat de l'activité pour la connexion avec Google
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             try {
                 val account = task.result
                 if (account != null) {
-                    println("GoogleSignInAccount reçu : ${account.email}")
                     viewModel.signInWithGoogle(account)
-                } else {
-                    println("GoogleSignInAccount est null")
                 }
             } catch (e: ApiException) {
                 println("Erreur ApiException lors de la tentative de connexion via Google : code=${e.statusCode}")
-                e.printStackTrace()
             } catch (e: Exception) {
                 println("Erreur générique lors de la tentative de connexion via Google : ${e.localizedMessage}")
-                e.printStackTrace()
             }
         } else {
             println("GoogleSignIn a échoué ou a été annulé")
         }
     }
-
-
-
 
     Column(
         modifier = Modifier
@@ -89,7 +87,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Header avec flèche de retour
+        // En-tête avec un bouton de retour
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -112,7 +110,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
         Spacer(modifier = Modifier.height(24.dp))
 
         if (user == null) {
-            // Formulaire de connexion
+            // Formulaire de connexion pour les utilisateurs non connectés
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -126,6 +124,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         .padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
+                    // Champ de texte pour l'email
                     TextField(
                         value = email,
                         onValueChange = { email = it },
@@ -134,6 +133,8 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         singleLine = true
                     )
                     Spacer(modifier = Modifier.height(12.dp))
+
+                    // Champ de texte pour le mot de passe
                     TextField(
                         value = password,
                         onValueChange = { password = it },
@@ -144,6 +145,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                     )
                     Spacer(modifier = Modifier.height(16.dp))
 
+                    // Affichage des erreurs, si nécessaire
                     if (errorMessage != null) {
                         Text(
                             text = errorMessage!!,
@@ -154,29 +156,26 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         Spacer(modifier = Modifier.height(8.dp))
                     }
 
+                    // Bouton de connexion
                     Button(
                         onClick = {
                             viewModel.signIn(email, password)
-                            if (viewModel.user.value != null) {
-                                val userId = viewModel.user.value?.uid ?: ""
-                                navController.navigate("homepage/$userId")
-                            }
                         },
-                        modifier = Modifier
-                            .padding(vertical = 8.dp),
+                        modifier = Modifier.padding(vertical = 8.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
                         Text(text = "Login", color = Color.White)
                     }
 
+                    // Bouton pour naviguer vers la page d'inscription
                     TextButton(onClick = { navController.navigate("signup") }) {
                         Text("Not yet registered? Click here to register!", color = Color(0xFFFF4C4C))
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Bouton pour se connecter avec Google
+                    // Bouton pour la connexion Google
                     Button(
                         onClick = {
                             val signInIntent = googleSignInClient.signInIntent
@@ -195,7 +194,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
 
             Spacer(modifier = Modifier.height(24.dp))
         } else {
-            // Message pour utilisateur connecté
+            // Message et bouton de déconnexion pour les utilisateurs connectés
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()

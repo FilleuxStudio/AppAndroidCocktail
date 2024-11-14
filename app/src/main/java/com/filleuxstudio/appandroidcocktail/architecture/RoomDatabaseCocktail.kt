@@ -9,9 +9,9 @@ import com.filleuxstudio.appandroidcocktail.data.dao.RandomCocktailDAO
 import com.filleuxstudio.appandroidcocktail.data.model.CocktailEntity
 import com.filleuxstudio.appandroidcocktail.data.model.DrinkTypeEntity
 import com.filleuxstudio.appandroidcocktail.data.model.IngredientEntity
-import com.filleuxstudio.appandroidcocktail.data.model.RandomCocktailDTO
 import com.filleuxstudio.appandroidcocktail.data.model.RandomCocktailEntity
 
+// @Database pour spécifier une base de données Room
 @Database(
     entities = [
         CocktailEntity::class,
@@ -19,12 +19,13 @@ import com.filleuxstudio.appandroidcocktail.data.model.RandomCocktailEntity
         IngredientEntity::class,
         RandomCocktailEntity::class
     ],
-    version = 10,
-    exportSchema = false
+    version = 10, // Version de la base de données
+    exportSchema = false // Indique si le schéma de la base de données doit être exporté pour la documentation
 )
 abstract class RoomDatabaseCocktail : RoomDatabase() {
-    abstract fun CocktailDAO():CocktailDAO
-    abstract fun DrinkTypeDAO():DrinkTypeDAO
-    abstract fun IngredientDAO():IngredientDAO
-    abstract fun RandomCocktailDAO():RandomCocktailDAO
+    // Méthodes abstraites pour obtenir les DAO
+    abstract fun CocktailDAO(): CocktailDAO
+    abstract fun DrinkTypeDAO(): DrinkTypeDAO
+    abstract fun IngredientDAO(): IngredientDAO
+    abstract fun RandomCocktailDAO(): RandomCocktailDAO
 }
