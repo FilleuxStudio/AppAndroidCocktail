@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.filleuxstudio.appandroidcocktail.R
 import com.filleuxstudio.appandroidcocktail.view.viewmodel.AuthViewModel
 import com.filleuxstudio.appandroidcocktail.architecture.AuthViewModelFactory
 import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
@@ -74,7 +76,7 @@ fun RegisterScreenContent(viewModel: AuthViewModel, navController: NavController
             }
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Register",
+                text = stringResource(R.string.screen_title_register),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.weight(1f),
@@ -110,7 +112,7 @@ fun RegisterScreenContent(viewModel: AuthViewModel, navController: NavController
                 TextField(
                     value = password,
                     onValueChange = { password = it },
-                    label = { Text("Password") },
+                    label = { Text(stringResource(R.string.label_password)) },
                     visualTransformation = PasswordVisualTransformation(),
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -136,12 +138,12 @@ fun RegisterScreenContent(viewModel: AuthViewModel, navController: NavController
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C)),
                     shape = RoundedCornerShape(8.dp)
                 ) {
-                    Text(text = "Register", color = Color.White)
+                    Text(text = stringResource(R.string.screen_title_register), color = Color.White)
                 }
 
                 // Lien pour la connexion si l'utilisateur a déjà un compte
                 TextButton(onClick = { navController.navigate("firebaseFeature") }) {
-                    Text("Already have an account ? Click here !", color = Color(0xFFFF4C4C))
+                    Text(stringResource(R.string.link_already_have_account), color = Color(0xFFFF4C4C))
                 }
             }
         }

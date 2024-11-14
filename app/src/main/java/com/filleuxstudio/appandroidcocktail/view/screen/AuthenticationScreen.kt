@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.filleuxstudio.appandroidcocktail.R
 import com.filleuxstudio.appandroidcocktail.view.viewmodel.AuthViewModel
 import com.filleuxstudio.appandroidcocktail.architecture.AuthViewModelFactory
 import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
@@ -99,7 +101,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
             }
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = "Connexion",
+                text = stringResource(R.string.screen_title_authentication),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.weight(1f),
@@ -138,7 +140,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                     TextField(
                         value = password,
                         onValueChange = { password = it },
-                        label = { Text("Password") },
+                        label = { Text(stringResource(R.string.label_password)) },
                         visualTransformation = PasswordVisualTransformation(),
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true
@@ -165,12 +167,12 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4C4C)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = "Login", color = Color.White)
+                        Text(text = stringResource(R.string.button_login), color = Color.White)
                     }
 
                     // Bouton pour naviguer vers la page d'inscription
                     TextButton(onClick = { navController.navigate("signup") }) {
-                        Text("Not yet registered? Click here to register!", color = Color(0xFFFF4C4C))
+                        Text(stringResource(R.string.button_register_prompt), color = Color(0xFFFF4C4C))
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))
@@ -187,7 +189,7 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4285F4)),
                         shape = RoundedCornerShape(8.dp)
                     ) {
-                        Text(text = "Se connecter avec Google", color = Color.White)
+                        Text(text = stringResource(R.string.button_google_sign_in), color = Color.White)
                     }
                 }
             }
@@ -199,13 +201,13 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Welcome, logged-in user : ${user?.uid}", fontSize = 16.sp)
+                Text(stringResource(R.string.welcome_user_message)+ "${user?.uid}", fontSize = 16.sp)
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = {
                     viewModel.signOut()
                     navController.navigate("firebaseFeature")
                 }) {
-                    Text("Logout")
+                    Text(stringResource(R.string.button_logout))
                 }
             }
         }

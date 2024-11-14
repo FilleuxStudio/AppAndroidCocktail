@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -65,7 +66,7 @@ fun DeleteAllButton(viewModel: CocktailViewModel) {
         ),
         modifier = Modifier.padding(start = 8.dp)
     ) {
-        Text("Delete All")
+        Text(stringResource(R.string.delete_all_button_text))
     }
 }
 
@@ -94,12 +95,12 @@ fun SearchBar(viewModel: CocktailViewModel, modifier: Modifier = Modifier) {
                     // Icône de recherche
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.baseline_search_24),
-                        contentDescription = "Search Icon",
+                        contentDescription = stringResource(R.string.search_icon_description),
                         tint = Color.Black
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     if (searchQuery.isEmpty()) {
-                        Text("Search cocktails...", color = Color.Gray, fontSize = 18.sp)
+                        Text(stringResource(R.string.search_bar_hint), color = Color.Gray, fontSize = 18.sp)
                     }
                     innerTextField()
                 }
@@ -166,7 +167,7 @@ fun FooterItem() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "End of Cocktails List",
+            text = stringResource(R.string.footer_text),
             style = MaterialTheme.typography.bodyMedium,
             color = Color.White
         )
@@ -221,7 +222,7 @@ fun CocktailDetailDialog(cocktail: CocktailObject, onDismiss: () -> Unit) {
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text("Close")
+                Text(stringResource(R.string.dialog_close_button))
             }
         }
     )

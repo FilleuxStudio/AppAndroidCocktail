@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.filleuxstudio.appandroidcocktail.R
 import com.filleuxstudio.appandroidcocktail.view.viewmodel.RandomCocktailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +29,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Random Cocktail", color = Color.Black) },
+                title = { Text(text = stringResource(R.string.libelle_random_cocktail), color = Color.Black) },
                 actions = {
                     // Bouton pour générer un cocktail aléatoire
                     Button(
@@ -44,7 +46,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                             containerColor = Color(0xFFBEFA91)
                         )
                     ) {
-                        Text(text = "Random", color = Color.Black)
+                        Text(text = stringResource(R.string.libelle_random), color = Color.Black)
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -76,7 +78,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                 errorMessage != null -> {
                     // Affiche un message d'erreur si un problème est détecté
                     Text(
-                        text = errorMessage ?: "Unknown error",
+                        text = errorMessage ?: stringResource(R.string.libelle_unknown_error),
                         color = Color.Red,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
@@ -93,7 +95,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Category: ${cocktail!!.category ?: "Unknown"}",
+                        text = stringResource(R.string.libelle_category)+ "${cocktail!!.category ?: "Unknown"}",
                         fontSize = 18.sp,
                         color = Color.Gray
                     )
@@ -107,7 +109,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                     Spacer(modifier = Modifier.height(16.dp))
                     // Instructions pour préparer le cocktail
                     Text(
-                        text = "Instructions: ${cocktail!!.instructions ?: "No instructions"}",
+                        text = stringResource(R.string.instructions_label) + "${cocktail!!.instructions ?: "No instructions"}",
                         fontSize = 16.sp,
                         color = Color.Black,
                         textAlign = TextAlign.Justify
@@ -115,7 +117,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                     Spacer(modifier = Modifier.height(16.dp))
                     // Liste des ingrédients
                     Text(
-                        text = "Ingredients:",
+                        text = stringResource(R.string.ingredients_label),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Black,
@@ -127,7 +129,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                 }
                 else -> {
                     // Message par défaut en cas d'absence de données
-                    Text(text = "Press 'Random' to load a cocktail", color = Color.Gray)
+                    Text(text = stringResource(R.string.press_random_message), color = Color.Gray)
                 }
             }
         }
