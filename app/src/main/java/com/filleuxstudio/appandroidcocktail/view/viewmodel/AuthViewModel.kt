@@ -1,8 +1,8 @@
-package com.filleuxstudio.appandroidcocktail.viewmodel
+package com.filleuxstudio.appandroidcocktail.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.filleuxstudio.appandroidcocktail.repository.FirebaseAuthRepository
+import com.filleuxstudio.appandroidcocktail.data.FirebaseAuthRepository
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

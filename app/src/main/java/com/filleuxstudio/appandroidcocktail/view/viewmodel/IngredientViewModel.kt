@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.viewmodel
+package com.filleuxstudio.appandroidcocktail.view.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

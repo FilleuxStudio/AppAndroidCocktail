@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
-import com.filleuxstudio.appandroidcocktail.navigation.AppNavigation
+import com.filleuxstudio.appandroidcocktail.view.navigation.AppNavigation
 import com.filleuxstudio.appandroidcocktail.ui.theme.AppAndroidCocktailTheme
 
 // Classe principale de l'application

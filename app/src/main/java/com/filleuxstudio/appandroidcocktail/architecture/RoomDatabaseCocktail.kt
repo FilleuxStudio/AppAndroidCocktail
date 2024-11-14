@@ -19,7 +19,7 @@ import com.filleuxstudio.appandroidcocktail.data.model.RandomCocktailEntity
         IngredientEntity::class,
         RandomCocktailEntity::class
     ],
-    version = 10, // Version de la base de données
+    version = 2, // Version de la base de données
     exportSchema = false // Indique si le schéma de la base de données doit être exporté pour la documentation
 )
 abstract class RoomDatabaseCocktail : RoomDatabase() {

@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.screen
+package com.filleuxstudio.appandroidcocktail.view.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -102,7 +103,7 @@ fun HomepageScreen(
 
             // Texte de bienvenue
             Text(
-                text = "Welcome to the Cocktail App",
+                text = stringResource(R.string.title_home),
                 color = Color.Black,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,

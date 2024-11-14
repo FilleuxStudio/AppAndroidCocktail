@@ -1,15 +1,15 @@
-package com.filleuxstudio.appandroidcocktail.navigation
+package com.filleuxstudio.appandroidcocktail.view.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.filleuxstudio.appandroidcocktail.screen.AuthenticationScreen
-import com.filleuxstudio.appandroidcocktail.screen.APIListViewScreen
-import com.filleuxstudio.appandroidcocktail.screen.HomepageScreen
-import com.filleuxstudio.appandroidcocktail.screen.RegisterScreen
-import com.filleuxstudio.appandroidcocktail.screen.CocktailsScreen
-import com.filleuxstudio.appandroidcocktail.screen.RandomCocktailScreen
+import com.filleuxstudio.appandroidcocktail.view.screen.AuthenticationScreen
+import com.filleuxstudio.appandroidcocktail.view.screen.APIListViewScreen
+import com.filleuxstudio.appandroidcocktail.view.screen.HomepageScreen
+import com.filleuxstudio.appandroidcocktail.view.screen.RegisterScreen
+import com.filleuxstudio.appandroidcocktail.view.screen.CocktailsScreen
+import com.filleuxstudio.appandroidcocktail.view.screen.RandomCocktailScreen
 
 // Composable pour gérer la navigation de l'application
 @Composable

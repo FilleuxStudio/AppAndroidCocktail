@@ -1,4 +1,4 @@
-package com.filleuxstudio.appandroidcocktail.screen
+package com.filleuxstudio.appandroidcocktail.view.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.filleuxstudio.appandroidcocktail.viewmodel.RandomCocktailViewModel
+import com.filleuxstudio.appandroidcocktail.view.viewmodel.RandomCocktailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
