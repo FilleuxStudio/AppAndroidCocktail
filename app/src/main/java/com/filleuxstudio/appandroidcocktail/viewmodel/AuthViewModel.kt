@@ -12,11 +12,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-// ViewModel qui gère les opérations d'authentification de l'utilisateur,
-// utilisant Firebase pour les fonctionnalités de connexion, inscription, et déconnexion.
+// ViewModel qui gère les opérations d'authentification de l'utilisateur
+// utilisant Firebase pour les fonctionnalités de connexion, inscription, et déconnexion
 class AuthViewModel(private val repository: FirebaseAuthRepository) : ViewModel() {
 
-    // StateFlow pour stocker l'utilisateur connecté actuel.
+    // StateFlow pour stocker l'utilisateur connecté actuel
     private val _user = MutableStateFlow<FirebaseUser?>(repository.getCurrentUser())
     // Exposition publique en lecture seule du flux d'état utilisateur.
     val user: StateFlow<FirebaseUser?> get() = _user
