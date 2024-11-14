@@ -1,11 +1,15 @@
 package com.filleuxstudio.appandroidcocktail.screen
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,16 +27,29 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Random Cocktail") },
+                title = { Text(text = "Random Cocktail",  color = Color.Black ) },
                 actions = {
                     // Bouton pour générer un cocktail aléatoire
                     Button(
                         onClick = { viewModel.fetchRandomCocktail() },
-                        modifier = Modifier.padding(8.dp)
+                        modifier = Modifier
+                            .padding(8.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        elevation = ButtonDefaults.buttonElevation(
+                            defaultElevation = 4.dp,  // Élévation par défaut
+                            pressedElevation = 1.dp,  // Élévation quand le bouton est pressé
+                            hoveredElevation = 6.dp  // Élévation quand la souris survole (pour les plateformes de bureau)
+                        ),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFBEFA91)
+                        )
                     ) {
                         Text(text = "Random")
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xf2f2f2ff)
+                )
             )
         },
         bottomBar = {
@@ -45,6 +62,7 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .background(Color(0xf2f2f2ff))
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
@@ -70,7 +88,8 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                         text = cocktail!!.name,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary,
+                        //color = MaterialTheme.colorScheme.primary,
+                        color = Color.Black,
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.height(8.dp))
@@ -89,17 +108,19 @@ fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktail
                     Text(
                         text = "Instructions: ${cocktail!!.instructions ?: "No instructions"}",
                         fontSize = 16.sp,
+                        color = Color.Black,
                         textAlign = TextAlign.Justify
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = "Ingredients:",
                         fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
                     )
                     // Affichage des détails du cocktail
                     cocktail!!.ingredients.zip(cocktail!!.measures).forEach { (ingredient, measure) ->
-                        BasicText(text = "$ingredient: $measure")
+                        Text(text = "$ingredient: $measure", color = Color.Gray)
                     }
                 }
                 else -> {
