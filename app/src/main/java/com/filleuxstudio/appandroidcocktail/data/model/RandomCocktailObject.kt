@@ -1,5 +1,6 @@
 package com.filleuxstudio.appandroidcocktail.data.model
 
+// La classe RandomCocktailObject est un modèle utilisé pour afficher un cocktail dans l'interface utilisateur.
 data class RandomCocktailObject(
     val name: String,
     val category: String?,
@@ -10,6 +11,8 @@ data class RandomCocktailObject(
     val ingredients: List<String>,
     val measures: List<String>
 )
+
+// Fonction d'extension pour convertir un objet RandomCocktailDetailDTO en RandomCocktailEntity (utilisé pour stocker dans la base de données)
 fun RandomCocktailDetailDTO.toEntity(): RandomCocktailEntity {
     return RandomCocktailEntity(
         name = name,
@@ -22,5 +25,3 @@ fun RandomCocktailDetailDTO.toEntity(): RandomCocktailEntity {
         measures = listOfNotNull(measure1, measure2, measure3, measure4, measure5).joinToString(", ")
     )
 }
-
-

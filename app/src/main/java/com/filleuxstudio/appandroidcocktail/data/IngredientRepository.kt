@@ -9,7 +9,10 @@ import com.filleuxstudio.appandroidcocktail.data.model.toUi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
+
+// Repository qui gère les opérations liées aux ingrédients des cocktails
 class IngredientRepository {
+    // Accès à la DAO (Data Access Object) associée aux ingrédients dans la base de données locale
     private val ingredientDAODatabase = DatabaseInit.instance.mApplicationDatabase.IngredientDAO()
 
 //    suspend fun fetchData(Ingredient: String) {
@@ -19,6 +22,7 @@ class IngredientRepository {
 //        //ingredientDAODatabase.insertIngredient(ingredientByNameEntities)
 //    }
 
+    // Fonction pour récupérer des ingrédients par leur nom depuis l'API
     suspend fun fetchData(ingredientName: String, onError: (String) -> Unit) {
         // Appel de l'API pour récupérer les ingrédients par nom
         val response = RetrofitBuilderAPITheCocktail.getCocktailByIngredientName()
@@ -42,15 +46,20 @@ class IngredientRepository {
             ingredientDAODatabase.insertAllIngredients(ingredientEntities)
         } else {
             // Gestion des erreurs
-            Log.e("IngredientRepository", "Erreur lors de la récupération des ingrédients: ${response.errorBody()}")
+            Log.e(
+                "IngredientRepository",
+                "Erreur lors de la récupération des ingrédients: ${response.errorBody()}"
+            )
             onError("Erreur lors de la récupération des ingrédients")
         }
     }
 
+    // Fonction pour supprimer tous les ingrédients de la base de données locale
     fun deleteAll() {
         ingredientDAODatabase.deleteAllIngredients()
     }
 
+    // Fonction pour récupérer tous les ingrédients stockés dans la base de données sous forme de Flow
     fun selectAll(): Flow<List<IngredientObject>> {
         return ingredientDAODatabase.getAllIngredients().map { list ->
             Log.e("DatabaseItems", "Items in DB: ${list.size}")
