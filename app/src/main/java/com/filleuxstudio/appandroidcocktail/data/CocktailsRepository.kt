@@ -20,6 +20,9 @@ class CocktailsRepository {
     }
 
     suspend fun searchCocktails(query: String): List<CocktailObject> {
+
+        fetchData(query)
+
         val searchResults = cocktailDAODatabase.searchCocktails(query).map { list ->
             list.toUi()
         }.first() // Handle null and fetch results from local DB
