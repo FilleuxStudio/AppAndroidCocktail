@@ -13,20 +13,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import com.filleuxstudio.appandroidcocktail.viewmodel.RandomCocktailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RandomCocktailScreen(navController: NavController,
-    viewModel: RandomCocktailViewModel = viewModel()
-) {
+fun RandomCocktailScreen(navController: NavController, viewModel: RandomCocktailViewModel = viewModel()) {
+    // Structure générale de l'interface avec un haut et bas de page
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Random Cocktail") },
                 actions = {
+                    // Bouton pour générer un cocktail aléatoire
                     Button(
                         onClick = { viewModel.fetchRandomCocktail() },
                         modifier = Modifier.padding(8.dp)
@@ -37,10 +36,11 @@ fun RandomCocktailScreen(navController: NavController,
             )
         },
         bottomBar = {
+            // Barre de navigation en bas
             BottomNavigationBar(navController)
         }
     ) { paddingValues ->
-        // Le contenu principal de votre écran
+        // Contenu principal de l'écran
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -49,17 +49,23 @@ fun RandomCocktailScreen(navController: NavController,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            // Observations des états
             val cocktail by viewModel.currentCocktail.collectAsState()
             val errorMessage by viewModel.errorMessage.collectAsState()
 
+            // Affichage basé sur l'état des données
             when {
-                errorMessage != null -> Text(
-                    text = errorMessage ?: "Unknown error",
-                    color = Color.Red,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                errorMessage != null -> {
+                    // Affichage d'un message d'erreur si présent
+                    Text(
+                        text = errorMessage ?: "Unknown error",
+                        color = Color.Red,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
                 cocktail != null -> {
+                    // Affichage des informations du cocktail si disponible
                     Text(
                         text = cocktail!!.name,
                         fontSize = 24.sp,
@@ -91,15 +97,16 @@ fun RandomCocktailScreen(navController: NavController,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold
                     )
+                    // Affichage des détails du cocktail
                     cocktail!!.ingredients.zip(cocktail!!.measures).forEach { (ingredient, measure) ->
                         BasicText(text = "$ingredient: $measure")
                     }
                 }
-                else -> Text(text = "Press 'Random' to load a cocktail", color = Color.Gray)
+                else -> {
+                    // Message par défaut si aucune donnée n'est disponible
+                    Text(text = "Press 'Random' to load a cocktail", color = Color.Gray)
+                }
             }
-
         }
-
-
     }
 }

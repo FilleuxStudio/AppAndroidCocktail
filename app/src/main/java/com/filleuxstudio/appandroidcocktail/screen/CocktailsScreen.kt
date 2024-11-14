@@ -24,6 +24,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.filleuxstudio.appandroidcocktail.R
 import com.filleuxstudio.appandroidcocktail.data.model.CocktailObject
@@ -31,21 +32,23 @@ import com.filleuxstudio.appandroidcocktail.viewmodel.CocktailViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun CocktailsScreen() {
+fun CocktailsScreen(navController: NavController) {
     val viewModel: CocktailViewModel = viewModel()
     val cocktails by viewModel.cocktails.collectAsState()
 
-    Scaffold {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
+    Scaffold(
+        modifier = Modifier
+            .fillMaxSize(),
+        bottomBar = {
+            BottomNavigationBar(navController)
+        }
+    ) {
+        Column {
             SearchBar(viewModel)
-            Spacer(modifier = Modifier.height(16.dp))
             CocktailList(cocktails)
         }
     }
+
 }
 
 @Composable
