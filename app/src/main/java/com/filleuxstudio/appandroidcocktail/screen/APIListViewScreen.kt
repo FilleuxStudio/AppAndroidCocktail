@@ -23,6 +23,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -62,6 +63,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import kotlinx.coroutines.launch
@@ -105,7 +108,6 @@ fun APIListViewScreen(navController: NavController) {
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Log.e("eeeeeeeeee", list.count().toString())
             IngredientList(Modifier.padding(padding), list)
             Spacer(modifier = Modifier.weight(1f))
         }
@@ -273,7 +275,7 @@ fun getIngredientImageResource(name: String): Int {
     }
 }
 
-@Composable
+/*@Composable
 fun BottomNavigationBar(navController: NavController) {
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = currentBackStackEntry?.destination?.route
@@ -312,5 +314,98 @@ fun BottomNavigationBar(navController: NavController) {
         ) {
             Text(text = "Random", color = Color.Black)
         }
+    }
+}*/
+
+@Composable
+fun BottomNavigationBar(navController: NavController) {
+    val currentBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentBackStackEntry?.destination?.route
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth(2f)
+            .background(Color(0xffffffff))
+            .padding(10.dp),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        BottomNavItem(
+            iconResId = R.drawable.home,
+            label = "Home",
+            route = "homepage",
+            color = Color(0xFFFF4C4C),
+            navController = navController,
+            currentRoute = currentRoute
+        )
+
+        BottomNavItem(
+            iconResId = R.drawable.cocktailshaker,
+            label = "Ingredients",
+            route = "listFeature",
+            color = Color(0xFFFF4C4C),
+            navController = navController,
+            currentRoute = currentRoute
+        )
+
+        BottomNavItem(
+            iconResId  = R.drawable.cocktails,
+            label = "Cocktails",
+            route = "cocktails",
+            color = Color(0xFFFFFF00),
+            navController = navController,
+            currentRoute = currentRoute
+        )
+
+        BottomNavItem(
+            iconResId  = R.drawable.drink,
+            label = "Random",
+            route = "random",
+            color = Color(0xFFB0FF00),
+            navController = navController,
+            currentRoute = currentRoute
+        )
+    }
+}
+
+@Composable
+fun BottomNavItem(
+    @DrawableRes iconResId: Int,
+    label: String,
+    route: String,
+    color: Color,
+    navController: NavController,
+    currentRoute: String?
+) {
+    val selected = currentRoute == route
+    val background = if (selected) color.copy(alpha = 0.1f) else Color.Transparent
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(background)
+            .clickable(onClick = {
+                navController.navigate(route) {
+                    popUpTo(navController.graph.startDestinationId)
+                    launchSingleTop = true
+                }
+            })
+            .padding(vertical = 8.dp, horizontal = 16.dp)
+    ) {
+        Image(
+            painter = painterResource(id = iconResId),
+            contentDescription = label,
+            modifier = Modifier.size(24.dp),
+            colorFilter = ColorFilter.tint(if (selected) color else Color.Gray)
+        )
+        Spacer(modifier = Modifier.height(4.dp))
+        Text(
+            text = label,
+            color = if (selected) color else Color.Gray,
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 1
+        )
     }
 }
