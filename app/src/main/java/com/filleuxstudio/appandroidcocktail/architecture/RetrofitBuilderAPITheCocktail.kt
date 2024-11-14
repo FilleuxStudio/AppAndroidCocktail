@@ -12,7 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 object RetrofitBuilderAPITheCocktail {
-    private const val BASE_URL = "https://www.thecocktaildb.com/api/json/v1/"
+    private const val BASE_URL = "merg/json/v1/"
     private const val API_KEY = "1/"
 
     private val retrofit: Retrofit = Retrofit.Builder()
