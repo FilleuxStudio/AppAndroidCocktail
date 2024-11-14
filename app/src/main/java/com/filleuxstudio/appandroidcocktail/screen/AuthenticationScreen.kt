@@ -1,7 +1,7 @@
 package com.filleuxstudio.appandroidcocktail.screen
 
 import android.app.Activity
-import android.content.Intent
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.material3.R
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -46,16 +45,22 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
     val errorMessage by viewModel.errorMessage.collectAsState()
     val user by viewModel.user.collectAsState()
 
-    val context = LocalContext.current as Activity
+    val context = LocalContext.current // Context nécessaire pour afficher le Toast
 
-    // Configuration Google Sign- en utilisant l'ID client de Secrets.kt
+    // Affichage d'un Toast si l'utilisateur est connecté
+    LaunchedEffect(user) {
+        if (user != null) {
+            Toast.makeText(context, "Vous êtes connecté !", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    // Configuration Google Sign-In
     val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
         .requestIdToken(Secrets.GOOGLE_CLIENT_ID)
         .requestEmail()
         .build()
 
-    val googleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(context, googleSignInOptions)
-
+    val googleSignInClient: GoogleSignInClient = GoogleSignIn.getClient(context as Activity, googleSignInOptions)
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -63,25 +68,17 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
             try {
                 val account = task.result
                 if (account != null) {
-                    println("GoogleSignInAccount reçu : ${account.email}")
                     viewModel.signInWithGoogle(account)
-                } else {
-                    println("GoogleSignInAccount est null")
                 }
             } catch (e: ApiException) {
                 println("Erreur ApiException lors de la tentative de connexion via Google : code=${e.statusCode}")
-                e.printStackTrace()
             } catch (e: Exception) {
                 println("Erreur générique lors de la tentative de connexion via Google : ${e.localizedMessage}")
-                e.printStackTrace()
             }
         } else {
             println("GoogleSignIn a échoué ou a été annulé")
         }
     }
-
-
-
 
     Column(
         modifier = Modifier
@@ -157,10 +154,6 @@ fun AuthenticationScreenContent(viewModel: AuthViewModel, navController: NavCont
                     Button(
                         onClick = {
                             viewModel.signIn(email, password)
-                            if (viewModel.user.value != null) {
-                                val userId = viewModel.user.value?.uid ?: ""
-                                navController.navigate("homepage/$userId")
-                            }
                         },
                         modifier = Modifier
                             .padding(vertical = 8.dp),

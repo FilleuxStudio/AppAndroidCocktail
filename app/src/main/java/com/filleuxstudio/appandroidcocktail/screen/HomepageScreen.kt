@@ -24,9 +24,8 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun HomepageScreen(
     onNavigateToList: () -> Unit,
-    onNavigateToFirebase: () -> Unit,
-
-    ) {
+    onNavigateToFirebase: () -> Unit
+) {
     // Colors from the cocktail image
     val redColor = Color(0xFFFF4C4C) // Red from the cocktail
     val yellowColor = Color(0xFFFFE773) // Yellow
@@ -36,8 +35,6 @@ fun HomepageScreen(
     // Récupérer l'utilisateur connecté
     val currentUser = FirebaseAuth.getInstance().currentUser
     val userId = currentUser?.uid
-
-
 
     // Background with circles in red, yellow, and green
     Box(
@@ -115,13 +112,11 @@ fun HomepageScreen(
             if (userId != null) {
                 // Affichage de l'ID utilisateur si l'utilisateur est connecté
                 Text(
-                    text="Your ID : $userId",
+                    text = "Your ID : $userId",
                     fontWeight = FontWeight.Bold
-
                 )
-
             } else {
-                    Text("Connect to retrieve your account ID")
+                Text("Connect to retrieve your account ID")
             }
 
             // Button to navigate to API List
@@ -158,6 +153,22 @@ fun HomepageScreen(
                     modifier = Modifier.padding(8.dp)
                 )
             }
+        }
+
+        // Bottom section to display team members' names
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .align(Alignment.BottomCenter),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Team Members: Dimitri, Noah, Kylian",
+                color = Color.Gray,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Medium
+            )
         }
     }
 }
