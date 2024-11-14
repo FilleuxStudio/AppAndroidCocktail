@@ -105,4 +105,4 @@ Voici la section mise à jour avec les technologies supplémentaires :
 
 ## Captures d'écran
 
-*(Ajouter des captures d'écran de l'application ici)*
+<img src="https://github.com/FilleuxStudio/AppAndroidCocktail/blob/main/picutre/Screenshot_20241114_145903.jpg" />
