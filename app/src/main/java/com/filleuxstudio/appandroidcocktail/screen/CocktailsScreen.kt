@@ -14,9 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.key.Key
-import androidx.compose.ui.input.key.key
-import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
@@ -37,29 +34,46 @@ fun CocktailsScreen(navController: NavController) {
     val cocktails by viewModel.cocktails.collectAsState()
 
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        bottomBar = {
-            BottomNavigationBar(navController)
-        }
+        modifier = Modifier.fillMaxSize(),
+        bottomBar = { BottomNavigationBar(navController) }
     ) {
         Column {
-            SearchBar(viewModel)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                SearchBar(viewModel, modifier = Modifier.weight(1f))
+                DeleteAllButton(viewModel)
+            }
             CocktailList(cocktails)
         }
     }
-
 }
 
 @Composable
-fun SearchBar(viewModel: CocktailViewModel) {
+fun DeleteAllButton(viewModel: CocktailViewModel) {
+    Button(
+        onClick = { viewModel.deleteAllCocktails() },
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Red,
+            contentColor = Color.White
+        ),
+        modifier = Modifier.padding(start = 8.dp)
+    ) {
+        Text("Delete All")
+    }
+}
+
+@Composable
+fun SearchBar(viewModel: CocktailViewModel, modifier: Modifier = Modifier) {
     var searchQuery by remember { mutableStateOf("") }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .background(Color.White, shape = MaterialTheme.shapes.medium)
-            .fillMaxWidth()
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
         BasicTextField(
             value = searchQuery,
@@ -68,7 +82,7 @@ fun SearchBar(viewModel: CocktailViewModel) {
                 if (it.isNotEmpty()) {
                     viewModel.searchCocktails(it)
                 } else {
-                    viewModel.loadDefaultCocktails() // Reset to default cocktails when search is cleared
+                    viewModel.loadDefaultCocktails()
                 }
             },
             textStyle = TextStyle(color = Color.Black, fontSize = 18.sp),
@@ -87,7 +101,6 @@ fun SearchBar(viewModel: CocktailViewModel) {
                 }
             },
             modifier = Modifier.fillMaxWidth()
-
         )
     }
 }
@@ -97,17 +110,13 @@ fun CocktailList(cocktails: List<CocktailObject>) {
     var selectedCocktail by remember { mutableStateOf<CocktailObject?>(null) }
     var showDialog by remember { mutableStateOf(false) }
 
-    // Group cocktails by the first letter of their names
     val groupedCocktails = cocktails.groupBy { cocktail ->
-        cocktail.nameDrink.firstOrNull()?.toString() ?: "#" // Group by first letter or '#' if missing
+        cocktail.nameDrink.firstOrNull()?.toString() ?: "#"
     }
 
     LazyColumn {
-        // Iterate over the grouped cocktails
         groupedCocktails.forEach { (letter, cocktailList) ->
-            item {
-                HeaderItem(letter) // Display header for each group
-            }
+            item { HeaderItem(letter) }
 
             items(cocktailList) { cocktail ->
                 CocktailItem(cocktail) {
@@ -117,10 +126,7 @@ fun CocktailList(cocktails: List<CocktailObject>) {
             }
         }
 
-        // Add a footer item at the end of the list
-        item {
-            FooterItem()
-        }
+        item { FooterItem() }
     }
 
     if (showDialog && selectedCocktail != null) {
@@ -132,7 +138,6 @@ fun CocktailList(cocktails: List<CocktailObject>) {
 
 @Composable
 fun HeaderItem(letter: String) {
-    // Displaying a letter as a header for each section; you can customize it further
     Text(
         text = letter,
         style = MaterialTheme.typography.titleMedium,
@@ -145,7 +150,6 @@ fun HeaderItem(letter: String) {
 
 @Composable
 fun FooterItem() {
-    // Displaying a simple footer at the end of the list
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -160,7 +164,6 @@ fun FooterItem() {
         )
     }
 }
-
 
 @Composable
 fun CocktailItem(cocktail: CocktailObject, onClick: () -> Unit) {
@@ -187,7 +190,7 @@ fun CocktailItem(cocktail: CocktailObject, onClick: () -> Unit) {
 fun CocktailDetailDialog(cocktail: CocktailObject, onDismiss: () -> Unit) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        modifier = Modifier.fillMaxWidth(0.9f), // Set width to occupy more of the screen
+        modifier = Modifier.fillMaxWidth(0.9f),
         title = { Text(text = cocktail.nameDrink) },
         text = {
             Column {
